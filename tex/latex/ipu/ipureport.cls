@@ -235,7 +235,8 @@
 \RequirePackage{scrlayer-scrpage}
 \pagestyle{scrheadings}
 \renewcommand*{\sectionmarkformat}{}
-\automark[section]{section}
+\automark{section}
+%\renewcommand{\sectionmark}[1]{\markright{ {\thesection}.\ {#1}}{} }
 \ihead{\headmark}
 \ohead{\small\pageofpages}
 %\ihead{\MakeUppercase{\headmark}}
@@ -313,14 +314,6 @@
 \setkomafont{title}{\raggedright\normalfont\sffamily\bfseries\Huge}
 \setkomafont{subtitle}{\raggedright\normalfont\sffamily\mdseries\Large}
 %
-%\newcommand\covernode{
-%\node[circle,draw,text=white,path picture={
-%  \node at (path picture bounding box.center){
-%    \includegraphics[width=3.5cm]{IPU-Logo-RGB}
-%  };
-%}]{I'm watching you!};
-%}
-%
 \tikzstyle{titleNode} = [inner ysep = 3ex, inner xsep = 0ex]
 \def\maketitle{%
 \thispagestyle{empty}
@@ -333,11 +326,8 @@
 };
 \draw[thick,color=\ipureport@bgcolor] (rectBox.south west) -- (rectBox.south east) ;
 \draw[thick,color=\ipureport@bgcolor] (rectBox.north west) -- (rectBox.north east) ;
-% \ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi
-\ifx\@subtitle\@empty
-{\node[inner sep=0pt, minimum width=0pt,above right] (subTitleNode) at (rectBox.north west) {};} % a default
-\else
-{\node[titleNode, text width=0.9\textwidth,above right] (subTitleNode) at (rectBox.north west) {
+\ifx\@subtitle\@empty{\node[inner sep=0pt, minimum width=0pt,above right] (subTitleNode) at (rectBox.north west) {};} % a default
+\else{\node[titleNode, text width=0.9\textwidth,above right] (subTitleNode) at (rectBox.north west) {
 \scalebox{1.4}{\begin{minipage}{0.65\textwidth}\usekomafont{subtitle}\@subtitle\end{minipage}}};}%
 \fi
 %
@@ -348,16 +338,14 @@
 \par\clearpage\setcounter{page}{1}%
 }
 % 
-% %Add the second page with add info, use \@author, \@subtitle , \@projectid , \@keywords, \@date 
-% \new
-% 
-% \usekomafont{author}{%
-%             \lineskip 0.75em
-%             \begin{tabular}[t]{c}
-%               \@author
-%             \end{tabular}\par
-%           }%
-% 
-% \par\clearpage\par 
+%
+%\newenvironment{synopsis}[1][Synopsis]{%
+\newenvironment{synopsis}[1][\@title]{%
+\ihead[]{\ifx\@projectid\@empty\relax\else{\unskip\mdseries\LARGE\@projectid\\}\fi{\unskip\bfseries\LARGE#1}}%
+\ohead[]{}%
+}{%
+\par\clearpage\setcounter{page}{1}%
+}
+%
 %
 \endinput
