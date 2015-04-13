@@ -615,6 +615,45 @@
 %
 %
 %======================================================================
+%===  New title page
+%\RequirePackage{relsize}
+\setkomafont{title}{\raggedright\normalfont\sffamily\bfseries\Huge}
+%
+%\newcommand\covernode{
+%\node[circle,draw,text=white,path picture={
+%  \node at (path picture bounding box.center){
+%    \includegraphics[width=3.5cm]{IPU-Logo-RGB}
+%  };
+%}]{I'm watching you!};
+%}
+%
+\tikzstyle{titleNode} = [inner ysep = 3ex, inner xsep = 0ex]
+\def\maketitle{%
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay] %
+\node[titleNode,minimum height=\headertop] (baseAnchor) at (current page.south) {};
+\node[titleNode,minimum width=1.05\textwidth,rectangle,above] (rectBox) at (baseAnchor.north) {
+  \tikz\node[minimum width=\coverpicturewidth,circle,draw=\ipureport@bgcolor,text=\ipureport@highlight,path picture={
+    \node at (path picture bounding box.south) {\coverpicture};
+  }] {\covertext};
+};
+\draw[thick,color=\ipureport@bgcolor] (rectBox.south west) -- (rectBox.south east) ;
+\draw[thick,color=\ipureport@bgcolor] (rectBox.north west) -- (rectBox.north east) ;
+\node[titleNode,above right] (titleNode) at (rectBox.north west) {
+  \scalebox{1.4}{
+    \begin{minipage}{0.65\textwidth}\usekomafont{title}\@title\end{minipage}
+  }
+};
+\end{tikzpicture}\par 
+\clearpage
+\setcounter{page}{1}}
+%
+%
+%
+%\addtokomafont{author}{\raggedright}
+%\addtokomafont{date}{\raggedright}
+%
+%======================================================================
 %===  New headlines
 %\@startsection{<type>}{<level>}{<indent>}{<beforeskip>}{<afterskip>}{<style>} 
 % \renewcommand{\section}{%
