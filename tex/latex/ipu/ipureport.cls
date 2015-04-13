@@ -183,10 +183,15 @@
 \newlength{\headertop}%
 \setlength{\headertop}{\ipureport@tmp mm}
 \stdout{header top: \ipureport@tmp mm}
-\FPmul\ipureport@tmp{0.05}{\ipureport@sizeratio}
-\newlength{\headerline}%
-\setlength{\headerline}{\ipureport@tmp mm}
-\stdout{header line: \ipureport@tmp mm}
+%\FPmul\ipureport@tmp{0.5}{\ipureport@sizeratio}
+%\newlength{\headerline}%
+%\setlength{\headerline}{\ipureport@tmp mm}
+%\stdout{header line: \ipureport@tmp mm}
+%\FPmul\ipureport@tmp{-2}{\getlengthpt{\bgmarginleftright}}
+%%\FPadd\ipureport@tmp{\ipureport@tmp}{\getlengthpt{\ipureportwidth}}
+%\newlength{\headerwidth}%
+%\setlength{\headerwidth}{\ipureport@tmp pt}
+%\stdout{header line width: \ipureport@tmp pt}
 %
 \FPmul\ipureport@tmp{5}{\ipureport@sizeratio}
 \newlength{\textintercolumn}%
@@ -368,7 +373,8 @@
 	      \begin{tikzpicture}[remember picture,overlay]%
 % 		      \draw (\toplogoleft,-\toplogotop) node[inner sep=0pt, below right] {\includegraphics[height=\toplogoheight]{\ipureport@toplogo}}; %
 		      \draw (\paperwidth-\ipulogoright,-\ipulogotop) node[inner sep=0pt, below left] {\includegraphics[height=\ipulogoheight]{\ipureport@toplogo}}; %
-                      \filldraw[inner sep=0pt,color=\ipureport@bgcolor] (\bgmarginleftright,-\headertop) rectangle (\paperwidth-\bgmarginleftright,-\headertop-\headerline); %
+              %\filldraw[inner sep=0pt,color=\ipureport@bgcolor] (\bgmarginleftright,-\headertop) rectangle (\paperwidth-\bgmarginleftright,-\headertop-\headerline); %
+              %\draw[color=\ipureport@bgcolor] (\bgmarginleftright,-\headertop) -- (\paperwidth-\bgmarginleftright,-\headertop); %
 % 		      \filldraw[inner sep=0pt,color=\ipureport@bgcolor!10] (\bgmarginleftright,-\bgfirstline-\bglinewidth) rectangle (\paperwidth-\bgmarginleftright,-\bgsecondline); %
 % 		      \filldraw[inner sep=0pt,color=\ipureport@bgcolor]    (\bgmarginleftright,-\bgfirstline) rectangle (\paperwidth-\bgmarginleftright,-\bgfirstline-\bglinewidth); %
 % 		      \filldraw[inner sep=0pt,color=\ipureport@bgcolor]    (\bgmarginleftright,-\bgsecondline) rectangle (\paperwidth-\bgmarginleftright,-\bgsecondline-\bglinewidth); %
@@ -511,17 +517,19 @@
 %\ihead{John Doe}
 %\ohead{Outer}
 \pagestyle{scrheadings}
+\renewcommand*{\sectionmarkformat}{}
 \automark[section]{section}
 \ihead{\headmark}
-\ohead{\pageofpages}
+\ohead{\small\pageofpages}
 %\ihead{\MakeUppercase{\headmark}}
 %\ohead{\MakeUppercase{\pageofpages}}
 \chead{}
 \cfoot[]{}
+\setheadsepline[1.1\textwidth]{0.5pt}
 %\renewcommand{\headfont}{\normalfont\small\sffamily\bfseries}
 %\renewcommand{\headfont}{\normalfont\small\sffamily\bfseries}
 %\setkomafont{pageheadfoot}{\normalfont\sffamily\bfseries\scshape\small}
-\setkomafont{pageheadfoot}{\normalfont\sffamily\small\bfseries}
+\setkomafont{pageheadfoot}{\normalfont\sffamily\bfseries}
 %\setkomafont{pagenumber}{\normalfont\sffamily\small\bfseries}
 % % \pagestyle{empty}
 % %\pagestyle{headings}
@@ -545,8 +553,14 @@
 %\ipureport@setcropsize
 \RequirePackage{crop}%
 %
+%
+\RequirePackage[T1]{fontenc}
+\RequirePackage{mathptmx}
+\RequirePackage[scaled]{uarial}
+\renewcommand*{\familydefault}{\sfdefault}
+%
 %\AtBeginDocument{\ipureport@drawbg}
-% \AtBeginDocument{\ipureport@setfonts} 
+%\AtBeginDocument{\ipureport@setfonts} 
 %
 %======================================
 %==  Details for pdf files
