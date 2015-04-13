@@ -179,6 +179,15 @@
 \setlength{\textmarginbottom}{\ipureport@tmp mm}
 \stdout{text margin bottom: \ipureport@tmp mm}
 %
+\FPmul\ipureport@tmp{  40}{\ipureport@sizeratio}
+\newlength{\headertop}%
+\setlength{\headertop}{\ipureport@tmp mm}
+\stdout{header top: \ipureport@tmp mm}
+\FPmul\ipureport@tmp{0.05}{\ipureport@sizeratio}
+\newlength{\headerline}%
+\setlength{\headerline}{\ipureport@tmp mm}
+\stdout{header line: \ipureport@tmp mm}
+%
 \FPmul\ipureport@tmp{5}{\ipureport@sizeratio}
 \newlength{\textintercolumn}%
 \setlength{\textintercolumn}{\ipureport@tmp mm}
@@ -359,6 +368,7 @@
 	      \begin{tikzpicture}[remember picture,overlay]%
 % 		      \draw (\toplogoleft,-\toplogotop) node[inner sep=0pt, below right] {\includegraphics[height=\toplogoheight]{\ipureport@toplogo}}; %
 		      \draw (\paperwidth-\ipulogoright,-\ipulogotop) node[inner sep=0pt, below left] {\includegraphics[height=\ipulogoheight]{\ipureport@toplogo}}; %
+                      \filldraw[inner sep=0pt,color=\ipureport@bgcolor] (\bgmarginleftright,-\headertop) rectangle (\paperwidth-\bgmarginleftright,-\headertop-\headerline); %
 % 		      \filldraw[inner sep=0pt,color=\ipureport@bgcolor!10] (\bgmarginleftright,-\bgfirstline-\bglinewidth) rectangle (\paperwidth-\bgmarginleftright,-\bgsecondline); %
 % 		      \filldraw[inner sep=0pt,color=\ipureport@bgcolor]    (\bgmarginleftright,-\bgfirstline) rectangle (\paperwidth-\bgmarginleftright,-\bgfirstline-\bglinewidth); %
 % 		      \filldraw[inner sep=0pt,color=\ipureport@bgcolor]    (\bgmarginleftright,-\bgsecondline) rectangle (\paperwidth-\bgmarginleftright,-\bgsecondline-\bglinewidth); %
@@ -380,6 +390,87 @@
 \SetBgAngle{0.0}% Select roation of logo
 \SetBgScale{1.0}% Select scale factor of logo
 %
+%\RequirePackage{scrpage2}
+%\pagestyle{scrheadings}
+% \ohead{
+% \begin{tikzpicture}[remember picture, overlay]
+%  % logo:
+%  \ifthispageodd
+%    {\node[below left,logo] at (current page.north east)}
+%    {\node[below right,logo] at (current page.north west)}
+%    {\logo} ;
+%  % page number:
+%  \ifthispageodd
+%    {\node[left,page] at (current page.east)}
+%    {\node[right,page] at (current page.west)}
+%    {\thepage} ;
+%  % chapter mark:
+%  \ifthispageodd
+%    {\node[anchor=north east,rotate=-90,chapter] at (current page.south east)}
+%    {\node[anchor=north west,rotate=90,chapter] at (current page.south west)}
+%    {\chaptertitle} ;
+%  \ifthispageodd
+%    {
+%      \draw[mygray,very thin]
+%        (current page.south east)++(-.6in,0)--++(0,.6\paperheight) ;
+%    }
+%    {
+%      \draw[mygray,very thin]
+%        (current page.south west)++(.6in,0)--++(0,.6\paperheight) ;
+%    }
+% \end{tikzpicture}
+% }
+% 
+% \documentclass[svgnames]{report}
+% \usepackage{tikz}
+% \usepackage{kpfonts}
+% \usepackage[explicit]{titlesec}
+% \newcommand*\chapterlabel{}
+% \titleformat{\chapter}
+%   {\gdef\chapterlabel{}
+%    \normalfont\sffamily\Huge\bfseries\scshape}
+%   {\gdef\chapterlabel{\thechapter\ }}{0pt}
+%   {\begin{tikzpicture}[remember picture,overlay]
+%     \node[yshift=-3cm] at (current page.north west)
+%       {\begin{tikzpicture}[remember picture, overlay]
+%         \draw[fill=LightSkyBlue] (0,0) rectangle
+%           (\paperwidth,3cm);
+%         \node[anchor=east,xshift=.9\paperwidth,rectangle,
+%               rounded corners=20pt,inner sep=11pt,
+%               fill=MidnightBlue]
+%               {\color{white}\chapterlabel#1};
+%        \end{tikzpicture}
+%       };
+%    \end{tikzpicture}
+%   }
+% \titlespacing*{\chapter}{0pt}{50pt}{-60pt}
+
+%
+% \documentclass[svgnames]{report}
+% \usepackage{tikz}
+% \usepackage{kpfonts}
+% \usepackage[explicit]{titlesec}
+% \newcommand*\chapterlabel{}
+% \titleformat{\chapter}
+%   {\gdef\chapterlabel{}
+%    \normalfont\sffamily\Huge\bfseries\scshape}
+%   {\gdef\chapterlabel{\thechapter\ }}{0pt}
+%   {\begin{tikzpicture}[remember picture,overlay]
+%     \node[yshift=-3cm] at (current page.north west)
+%       {\begin{tikzpicture}[remember picture, overlay]
+%         \draw[fill=LightSkyBlue] (0,0) rectangle
+%           (\paperwidth,3cm);
+%         \node[anchor=east,xshift=.9\paperwidth,rectangle,
+%               rounded corners=20pt,inner sep=11pt,
+%               fill=MidnightBlue]
+%               {\color{white}\chapterlabel#1};
+%        \end{tikzpicture}
+%       };
+%    \end{tikzpicture}
+%   }
+% \titlespacing*{\chapter}{0pt}{50pt}{-60pt}
+%
+%
 %\PassOptionsToClass{headsepline}{scrartcl}
 %
 %======================================================================
@@ -397,8 +488,57 @@
 %
 %======================================================================
 %===  Load the class and call the functions defined above
+%\PassOptionsToClass{headsepline}{scrartcl}
+\PassOptionsToPackage{english,french,ngerman,danish,british}{babel}%
+\RequirePackage{babel}
+\RequirePackage{lastpage}
+\newcommand{\pageofpages}{%
+  \@ifundefined{pageof@\languagename}
+    {page \thepage\ of \pageref{LastPage}} % a default
+    {\@nameuse{pageof@\languagename}}%
+ }
+% English is already default
+% \newcommand{\pageof@english}{page \thepage\ of \pageref{LastPage}}
+% French
+\newcommand{\pageof@french}{page \thepage\ sur \pageref{LastPage}}
+\newcommand{\pageof@danish}{side \thepage\ af \pageref{LastPage}}
+\newcommand{\pageof@german}{Seite \thepage\ von \pageref{LastPage}}
+\newcommand{\pageof@ngerman}{Seite \thepage\ von \pageref{LastPage}}
+%
 \LoadClass{scrartcl}
-% \pagestyle{empty}
+\RequirePackage{scrlayer-scrpage}
+%\RequirePackage[headsepline]{scrlayer-scrpage}
+%\ihead{John Doe}
+%\ohead{Outer}
+\pagestyle{scrheadings}
+\automark[section]{section}
+\ihead{\headmark}
+\ohead{\pageofpages}
+%\ihead{\MakeUppercase{\headmark}}
+%\ohead{\MakeUppercase{\pageofpages}}
+\chead{}
+\cfoot[]{}
+%\renewcommand{\headfont}{\normalfont\small\sffamily\bfseries}
+%\renewcommand{\headfont}{\normalfont\small\sffamily\bfseries}
+%\setkomafont{pageheadfoot}{\normalfont\sffamily\bfseries\scshape\small}
+\setkomafont{pageheadfoot}{\normalfont\sffamily\small\bfseries}
+%\setkomafont{pagenumber}{\normalfont\sffamily\small\bfseries}
+% % \pagestyle{empty}
+% %\pagestyle{headings}
+% \RequirePackage{scrpage2}%
+% \pagestyle{scrheadings}
+% \clearscrheadfoot%
+% %\ohead{\textbf{\pagemark}}%
+% %\renewcommand{\chaptermark}[1]{\markright{\ #1}} % no chapter number
+% %\ihead{\textbf{\rightmark}}
+% %\setheadsepline{1pt}[\color{blue}]
+% %
+% \lohead[]{(mytitle)}% Placeholder for \mytitle
+% \rehead[]{\leftmark}
+% \cfoot[\pagemark]{\pagemark}
+% \renewcommand*{\headfont}{\itshape\scshape}% Will equal \scshape for most fonts
+% %\renewcommand*{\chaptermarkformat}{\chapapp~\thechapter\autodot\enskip}
+%
 % \setlength\parindent{0pt}
 % %\ipureport@setpapersize
 \RequirePackage{geometry}
