@@ -28,6 +28,8 @@
 \let\@coverpicture\@empty
 \def\coverpicturewidth#1{\gdef\@coverpicturewidth{#1}}
 \let\@coverpicturewidth\textwidth
+\def\covercirclewidth#1{\gdef\@covercirclewidth{#1}}
+\let\@covercirclewidth\textwidth
 %
 % Standard options that you should pass to the class, use only kvoptions 
 % to avoid problems.
@@ -340,29 +342,45 @@
 \setkomafont{title}{\raggedright\normalfont\sffamily\bfseries\Huge}
 \setkomafont{subtitle}{\raggedright\normalfont\sffamily\mdseries\Large}
 %
-\tikzstyle{titleNode} = [inner ysep = 3ex, inner xsep = 0ex]
+\tikzstyle{imgNode} = [inner ysep = 3ex, inner xsep = 0ex]
+\tikzstyle{txtNode} = [inner ysep = 1ex, inner xsep = 0ex]
+%
+\def\@drawCoverPicture{\node[anchor=center] at (path picture bounding box.center) {\includegraphics[height=\@coverpicturewidth,width=\@coverpicturewidth,keepaspectratio]{\@coverpicture}}}
+%
 \def\maketitle{%
 \thispagestyle{empty}
 \begin{tikzpicture}[remember picture,overlay] %
-\node[titleNode,minimum height=\headertop] (baseAnchor) at (current page.south) {};
-\node[titleNode,minimum width=1.05\textwidth,rectangle,above] (rectBox) at (baseAnchor.north) {
-  \tikz\node[minimum width=\@coverpicturewidth,circle,draw=\ipureport@bgcolor,text=\ipureport@highlight,path picture={
+\node[imgNode,minimum height=\headertop] (baseAnchor) at (current page.south) {};
+\node[imgNode,minimum width=1.05\textwidth,rectangle,above] (rectBox) at (baseAnchor.north) {
+  \ifx\@covercirclewidth\@empty\let\@covercirclewidth\@coverpicturewidth\fi
+  \tikz\node[minimum width=\@covercirclewidth,circle,draw=\ipureport@bgcolor,text=\ipureport@highlight,path picture={
     \ifx\@coverpicture\@empty
-      \node[minimum width=\@coverpicturewidth,circle,fill=\ipureport@bgcolor!10] at (path picture bounding box.south) {};
+      \node[minimum width=\@coverpicturewidth,circle,fill=\ipureport@bgcolor!10,anchor=center] at (path picture bounding box.center) {};
     \else
-      \node at (path picture bounding box.south) {\includegraphics[width=\@coverpicturewidth]{\@coverpicture}};
+      \@drawCoverPicture;
     \fi
   }] {\@covertext};
 };
+%
+% \node[imgNode,minimum width=1.05\textwidth,rectangle,above] (rectBox) at (baseAnchor.north) {
+%   \ifx\@covercirclewidth\@empty\let\@covercirclewidth\@coverpicturewidth\fi
+%   \tikz\node[inner sep = 0ex,minimum width=\@covercirclewidth,circle,draw=\ipureport@bgcolor,text=\ipureport@highlight] {
+%     \ifx\@coverpicture\@empty
+%       \tikz\node[inner sep = 0ex,minimum width=\@coverpicturewidth,circle,fill=\ipureport@bgcolor!10] {\large\@covertext};%at (path picture bounding box.center) {};
+%     \else
+%       \tikz\node[inner sep = 0ex] {\includegraphics[width=\@coverpicturewidth]{\@coverpicture}};
+%     \fi
+%   };
+% };
+%
 \draw[thick,color=\ipureport@bgcolor] (rectBox.south west) -- (rectBox.south east) ;
 \draw[thick,color=\ipureport@bgcolor] (rectBox.north west) -- (rectBox.north east) ;
 \ifx\@subtitle\@empty{\node[inner sep=0pt, minimum width=0pt,above right] (subTitleNode) at (rectBox.north west) {};} % a default
-\else{\node[titleNode, text width=0.9\textwidth,above right] (subTitleNode) at (rectBox.north west) {
-\scalebox{1.4}{\begin{minipage}{0.65\textwidth}\usekomafont{subtitle}\@subtitle\end{minipage}}};}%
+\else{\node[txtNode, text width=0.9\textwidth,above right] (subTitleNode) at (rectBox.north west) {
+\scalebox{1.4}{\begin{minipage}{0.75\textwidth}\usekomafont{subtitle}\@subtitle\end{minipage}}};}%
 \fi
-%
-\node[titleNode,above right] (titleNode) at (subTitleNode.north west) {%
-\scalebox{1.4}{\begin{minipage}{0.65\textwidth}\usekomafont{title}\@title\end{minipage}}%
+\node[txtNode,above right] (titleNode) at (subTitleNode.north west) {%
+\scalebox{1.4}{\begin{minipage}{0.75\textwidth}\usekomafont{title}\@title\end{minipage}}%
 };%
 \end{tikzpicture}
 \par\clearpage\setcounter{page}{1}%

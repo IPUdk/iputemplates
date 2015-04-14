@@ -1,24 +1,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Custom Class
-% LaTeX Template
-% Version 1.0 (28/2/15)
+% IPU Example Report Document - A LaTeX Template
 %
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
+% Jorrit Wronski, jowr@ipu.dk
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% Original author:
-% Vel (vel@latextemplates.com)
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%----------------------------------------------------------------------------------------
-%	DOCUMENT SPECIFICATIONS
-%----------------------------------------------------------------------------------------
-% Class options are specified in the square brackets before the class name
-% The example class has two custom options: OPONE or OPTWO; one of these MUST be used or the compilation fails
+% SETTINGS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Class options can be given as optional parameter at load time
 \documentclass{ipureport}
 \usepackage[utf8]{inputenc}
 \title{Design af Energimåler II for Danfoss A/S}
@@ -42,17 +32,9 @@
 
 \begin{document}
 
-%----------------------------------------------------------------------------------------
-%	DOCUMENT CONTENT
-%----------------------------------------------------------------------------------------
-
-%\ifthenelse{\equal{\classtoggle}{OPONE}}
-%{The OPONE class option has been used! Margins are now smaller.}
-%{The OPONE class option has not been used.}
-%
-%\ifthenelse{\equal{\classtoggle}{OPTWO}}
-%{The OPTWO class option has been used! Margins are now larger.}
-%{The OPTWO class option has not been used.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONTENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \selectlanguage{british}
 
@@ -68,6 +50,7 @@
 \tableofcontents
 \listoftodos
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \cleardoublepage
 \section{Package Options}
 
@@ -80,25 +63,21 @@
 %%
 \todo[inline]{[false]{arial} DeclareComplementaryOption{helvet}{arial}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Author Commands and Variables}
 
 For every project, you should define \texttt{title}, \texttt{author} and \texttt{projectid}. The optional 
 commands for additional information are \texttt{subtitle} and \texttt{keywords}. 
 
-%----------------------------------------------------------------------------------------
-
 \todo[inline]{covertext{Test mes sdfgsdfg sdfg sdfg sdfg sdfg sdf}}
 \todo[inline]{coverpicturewidth{0.5 textwidth}}
 \todo[inline]{coverpicture{IPU-Logo-RGB}}
 
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \blinddocument
-
 \selectlanguage{french}
-
 \blindmathpaper
 
-%----------------------------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
