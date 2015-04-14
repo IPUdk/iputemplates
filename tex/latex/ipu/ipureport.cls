@@ -22,6 +22,13 @@
 \def\keywords#1{\gdef\@keywords{#1}}
 \let\@keywords\@empty
 %
+\def\covertext#1{\gdef\@covertext{#1}}
+\let\@covertext\@empty
+\def\coverpicture#1{\gdef\@coverpicture{#1}}
+\let\@coverpicture\@empty
+\def\coverpicturewidth#1{\gdef\@coverpicturewidth{#1}}
+\let\@coverpicturewidth\textwidth
+%
 % Standard options that you should pass to the class, use only kvoptions 
 % to avoid problems.
 %\RequirePackage{kvoptions-patch}
@@ -33,6 +40,9 @@
 %
 \DeclareBoolOption[false]{crop}
 \DeclareComplementaryOption{nocrop}{crop}
+%
+\DeclareBoolOption[false]{arial}
+\DeclareComplementaryOption{helvet}{arial}
 %
 % Default option rule
 \DeclareDefaultOption{%
@@ -308,9 +318,25 @@
 %======================================================================
 %===  New title page and fonts
 \RequirePackage[T1]{fontenc}
-\RequirePackage{mathptmx}
-\RequirePackage[scaled]{uarial}
+%\RequirePackage{mathptmx}
+%\RequirePackage{cmbright}
+%\RequirePackage{arevmath}
+%\RequirePackage{eulervm}
+%\RequirePackage[math]{iwona}
+%\RequirePackage[scaled]{uarial}
+%
+\ifipureport@arial%
+  \RequirePackage{cmbright}
+  \RequirePackage[scaled]{uarial}
+\else%
+  \RequirePackage{cmbright}
+  \RequirePackage[scaled]{helvet}
+  %\RequirePackage[EULERGREEK]{sansmath}
+  %\sansmath
+\fi%
+%
 \renewcommand*{\familydefault}{\sfdefault}
+%
 \setkomafont{title}{\raggedright\normalfont\sffamily\bfseries\Huge}
 \setkomafont{subtitle}{\raggedright\normalfont\sffamily\mdseries\Large}
 %
@@ -320,9 +346,13 @@
 \begin{tikzpicture}[remember picture,overlay] %
 \node[titleNode,minimum height=\headertop] (baseAnchor) at (current page.south) {};
 \node[titleNode,minimum width=1.05\textwidth,rectangle,above] (rectBox) at (baseAnchor.north) {
-  \tikz\node[minimum width=\coverpicturewidth,circle,draw=\ipureport@bgcolor,text=\ipureport@highlight,path picture={
-    \node at (path picture bounding box.south) {\coverpicture};
-  }] {\covertext};
+  \tikz\node[minimum width=\@coverpicturewidth,circle,draw=\ipureport@bgcolor,text=\ipureport@highlight,path picture={
+    \ifx\@coverpicture\@empty
+      \node[minimum width=\@coverpicturewidth,circle,fill=\ipureport@bgcolor!10] at (path picture bounding box.south) {};
+    \else
+      \node at (path picture bounding box.south) {\includegraphics[width=\@coverpicturewidth]{\@coverpicture}};
+    \fi
+  }] {\@covertext};
 };
 \draw[thick,color=\ipureport@bgcolor] (rectBox.south west) -- (rectBox.south east) ;
 \draw[thick,color=\ipureport@bgcolor] (rectBox.north west) -- (rectBox.north east) ;

@@ -25,14 +25,20 @@
 \subtitle{A little example on how to use the new report class}
 \author{Jorrit Wronski and His Colleague}
 \projectid{Projekt 7141}
-\keywords{report, IPU, LaTex, eksempel}
-%
-\usepackage{blindtext}
+\keywords{report, IPU, LaTeX, eksempel}
 %----------------------------------------------------------------------------------------
 
-\newcommand\covertext{}
-\newcommand\coverpicturewidth{\textwidth}
-\newcommand\coverpicture{\includegraphics[width=\coverpicturewidth]{IPU-Logo-RGB}}
+%\covertext{Test mes sdfgsdfg sdfg sdfg sdfg sdfg sdf}
+%\coverpicturewidth{0.5\textwidth}
+%%\coverpicture{IPU-Logo-RGB}
+
+%\covertext{Test mes sdfgsdfg sdfg sdfg sdfg sdfg sdf}
+%\coverpicturewidth{0.5\textwidth}
+%\coverpicture{IPU-Logo-RGB}
+
+%
+\usepackage[math]{blindtext}
+\usepackage[colorinlistoftodos]{todonotes} % Todonotes package for nice todos
 
 \begin{document}
 
@@ -48,46 +54,50 @@
 %{The OPTWO class option has been used! Margins are now larger.}
 %{The OPTWO class option has not been used.}
 
-\selectlanguage{danish}
+\selectlanguage{british}
 
 \maketitle
 
 \begin{synopsis}%[Alternative Title]
 \section*{Synopsis}
-Formålet med nærværende rapport er at præsentere det valgte design af ``SONOCAL'' og samle tidlige
-designforslag og øvrige arbejdspapirer fra projektet.
-Nærværende rapport danner afslutning på projektet ``Design af energimåler II''
-Velit, sim doleniam et vel delit am zzriuscilis nonsecte vel ut ent iusto erit, veriureet eum zzriliquipis
-adit prat. Ut nulputatem atis ad magnim verit accummy nonsequ ismoluptat diam ing euip et, velit iure
-mod el dolobor sum ipit la alit iurem ing eu facip et nisi. Et autat, sim vendiam doloreet, quat,
-Veliqui blandre deliquipis dolor amconse quatuercipit iure erat, sim ad euipisi blam, con ut augait
-volore faci blandigna feuis aliquam, vel ut utetuer incilit lobortie dolore dolore faci tem nis at iurem ut.
-Cin utat ulputet nismodolore faccum verat. Re faci blaorpercip el erostin ut dolor summy nullamc
-onsenim iustrud delit alisciliqui exerius tismodit, summy nissim vulla consed dunt am quat, vel ut
-wisi el utpat. Pat vulput nonsenit.
-Duisciduisi. Gueraestis dolobor sustincilla con vel eu feum iliquam zzriliquis nis aliqui tis ea alit acin
-ulla facincidunt atin utpatin esequis dunt utpatin el eugiat lore tinibh eros nulla feu faccum aliqui
-tismodit ut praessecte ver iuscidunt voloborperil ipsusciduis dolutem elesto dunt enibh eu facidunt
-irit loborero odoloboreet nonsequis at adiat.
-Ut lorperat dolore tat alisis nos nulluptat, quissenit ver ilis ex ex el et ing ex etumsandit, vel etum ip
-ea facinit lamet vel ute dolendreet aut la feugue tat. Dui eu feugue magnit lor suscin henit am, commy
-niat. Usci te eugiatum et nos.
-Am nulla faccum erat. Is num iuscip enis am ing eu feugiam esecte magna facil utat. To odolut alis
-adit augiat. Im velendipit loreet lum niat. It wisim dolobore elis nullaor il exeriusto et luptat. Duisisi.
-Wis atuer ipsum il in hent ip esequisisum vel doloreet wis ent ulla feumsan henisi. Liquatie dio dolessi
-tincipsum quis et ute coreetummy nim zzril utat, quat.
+\blindtext
 
 \end{synopsis}
 
 
+\tableofcontents
+\listoftodos
+
+\cleardoublepage
+\section{Package Options}
+
+\todo[inline]{[ipugrey]{bgcolor}                 \% default background colour}
+\todo[inline]{[ipugreen]{highlight}              \% default highlight colour}
+\todo[inline]{[IPU-Logo-RGB]{toplogo}            \% default institute logo}
+\todo[inline]{[a4paper]{papersize}               \% default paper size}
+%%
+\todo[inline]{[false]{crop} DeclareComplementaryOption{nocrop}{crop}}
+%%
+\todo[inline]{[false]{arial} DeclareComplementaryOption{helvet}{arial}}
+
+\section{Author Commands and Variables}
+
+For every project, you should define \texttt{title}, \texttt{author} and \texttt{projectid}. The optional 
+commands for additional information are \texttt{subtitle} and \texttt{keywords}. 
+
+%----------------------------------------------------------------------------------------
+
+\todo[inline]{covertext{Test mes sdfgsdfg sdfg sdfg sdfg sdfg sdf}}
+\todo[inline]{coverpicturewidth{0.5 textwidth}}
+\todo[inline]{coverpicture{IPU-Logo-RGB}}
+
 
 
 \blinddocument
-
 
 \selectlanguage{french}
 
-\blinddocument
+\blindmathpaper
 
 %----------------------------------------------------------------------------------------
 
