@@ -320,23 +320,19 @@
 %======================================================================
 %===  New title page and fonts
 \RequirePackage[T1]{fontenc}
+%\RequirePackage{inconsolata}
 %\RequirePackage{mathptmx}
-%\RequirePackage{cmbright}
+\RequirePackage{cmbright}
 %\RequirePackage{arevmath}
 %\RequirePackage{eulervm}
 %\RequirePackage[math]{iwona}
-%\RequirePackage[scaled]{uarial}
-%
 \ifipureport@arial%
-  \RequirePackage{cmbright}
   \RequirePackage[scaled]{uarial}
 \else%
-  \RequirePackage{cmbright}
   \RequirePackage[scaled]{helvet}
-  %\RequirePackage[EULERGREEK]{sansmath}
-  %\sansmath
 \fi%
-%
+%\RequirePackage{inconsolata}
+\RequirePackage{sourcecodepro}
 \renewcommand*{\familydefault}{\sfdefault}
 %
 \setkomafont{title}{\raggedright\normalfont\sffamily\bfseries\Huge}
