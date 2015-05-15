@@ -55,7 +55,7 @@
 %
 %
 \DeclareBoolOption[false]{conf}
-\DeclareBoolOption[false]{hand}
+\DeclareComplementaryOption{hand}{conf}
 \DeclareBoolOption[false]{asag}
 \DeclareBoolOption[false]{info}
 \DeclareBoolOption[false]{comm}
@@ -263,10 +263,10 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 \RequirePackage{lastpage}
 
 \ipu@translator{ipu@pageofpages}
-    {page \thepage\ of \pageref{LastPage}}
-    {side \thepage\ af \pageref{LastPage}}
+    {Page \thepage\ of \pageref{LastPage}}
+    {Side \thepage\ af \pageref{LastPage}}
     {Seite \thepage\ von \pageref{LastPage}}
-    {page \thepage\ sur \pageref{LastPage}}
+    {Page \thepage\ sur \pageref{LastPage}}
 %
 \LoadClass{scrartcl}
 \RequirePackage{scrlayer-scrpage}
@@ -378,10 +378,11 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 %
 \newcommand{\ipu@headleft}{
     \noindent\begin{minipage}[t]{0.65\textwidth}
-    \noindent\textbf{\ipu@project: \@title}\\
-    \noindent\textbf{\ipu@number: \@projectid}\\
-    \noindent\textbf{\ipu@author:} \@author\\
-    \noindent\textbf{\ipu@sent:} \\
+    \flushleft 
+    \unskip\noindent\textbf{\ipu@project: \@title}\\
+    \unskip\noindent\textbf{\ipu@number: \@projectid}\\
+    \unskip\noindent\textbf{\ipu@author:} \@author\\
+    \unskip\noindent\textbf{\ipu@sent:} \\
     \end{minipage}
 }
 %
@@ -401,11 +402,11 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 \newcommand{\ipu@headright}{
     \noindent\begin{minipage}[t]{0.3\textwidth}
     \flushright
-    \noindent\ipu@confidential{} \ifipureport@conf\@circled[ipugreen]\else\@circled\fi\\
-    \noindent\ipu@handout{} \ifipureport@hand\@circled[ipugreen]\else\@circled\fi\\
-    \noindent\ipu@asagreed{} \ifipureport@asag\@circled[ipugreen]\else\@circled\fi\\
-    \noindent\ipu@foryour{} \ifipureport@info\@circled[ipugreen]\else\@circled\fi\\
-    \noindent\ipu@comments{} \ifipureport@comm\@circled[ipugreen]\else\@circled\fi\\
+    \unskip\noindent\ipu@confidential{} \ifipureport@conf\@circled[ipugreen]\else\@circled\fi\\
+    \unskip\noindent\ipu@handout{} \ifipureport@conf\@circled\else\@circled[ipugreen]\fi\\
+    \unskip\noindent\ipu@asagreed{} \ifipureport@asag\@circled[ipugreen]\else\@circled\fi\\
+    \unskip\noindent\ipu@foryour{} \ifipureport@info\@circled[ipugreen]\else\@circled\fi\\
+    \unskip\noindent\ipu@comments{} \ifipureport@comm\@circled[ipugreen]\else\@circled\fi\\
     \end{minipage}
 }
 %
