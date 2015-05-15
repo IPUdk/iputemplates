@@ -1,10 +1,14 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ipureport}[2015/04/13 v1.0 - class for IPU reports in Latex]
+\ProvidesClass{ipureport}[2015/05/13 v1.1 - class for IPU reports in Latex]
 %======================================================================
 %===  ipureport - a class to make reports that comply with the IPU designguide
 %
 % Written and maintained in 2015--
 % by Jorrit Wronski (jowr@ipu.dk)
+% 
+% -- Changelog -- 
+% v1.1 - Minor changes to include the short report templates 
+% v1.0 - Initial release with the long report templates
 %
 %
 %======================================================================
@@ -13,7 +17,7 @@
 \newcommand\stdout[1]{\ClassInfo{ipureport}{#1}}
 %\newcommand\stdout[1]{\ClassWarningNoLine{ipureport}{#1}}
 %
-% title, author, keywords exist already, strictly speaking, these are not options (but almost)
+% title, author, keywords and date exist already, strictly speaking, these are not options (but almost)
 % {\ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi}
 %\def\subtitle#1{\gdef\@subtitle{#1}}
 %\let\@subtitle\@empty
@@ -45,6 +49,16 @@
 %
 \DeclareBoolOption[false]{arial}
 \DeclareComplementaryOption{helvet}{arial}
+%
+\DeclareBoolOption[false]{short}
+\DeclareComplementaryOption{long}{short}
+%
+%
+\DeclareBoolOption[false]{conf}
+\DeclareBoolOption[false]{hand}
+\DeclareBoolOption[false]{asag}
+\DeclareBoolOption[false]{info}
+\DeclareBoolOption[false]{comm}
 %
 % Default option rule
 \DeclareDefaultOption{%
@@ -109,9 +123,10 @@
             \ifequal{\ipureport@papersize}{a5paper}{%
                 \stdout{papersize switch: detected a5paper, A5 148 x 210 mm}
                 \FPmul\ipureportheight{210}{\ipureport@mmpt}}{%
-                \ClassError{ipureport}{
-                    value '\ipureport@papersize'< unkown \MessageBreak
-                    possible values are: a2paper, a3paper, a4paper or a5paper}
+                \ClassError{ipureport}%
+                {value '\ipureport@papersize'< unkown \MessageBreak
+possible values are: a2paper, a3paper, a4paper or a5paper}
+                {You selected an unknown paper size, please choose from the predefined options}
             }
         }
     }
@@ -229,19 +244,29 @@
 %===  Load the class and set the paper size
 \PassOptionsToPackage{english,french,ngerman,danish,british}{babel}%
 \RequirePackage{babel}
+\newcommand\ipu@translator[5]{
+    %\ifx{#2}\empty\relax\else\@namedef{#1@english}{#2}\fi
+    %\ifx{#2}\empty\relax\else\@namedef{#1@british}{#2}\fi
+    \@namedef{#1@english}{#2}%
+    \@namedef{#1@british}{#2}%
+    \@namedef{#1@danish}{#3}%
+    \@namedef{#1@ngerman}{#4}%
+    \@namedef{#1@german}{#4}%
+    \@namedef{#1@french}{#5}%
+    \@namedef{#1}{%
+        \@ifundefined{#1@\languagename}%
+        {#1@english}% a default
+        {\@nameuse{#1@\languagename}}%
+    }
+}
+%
 \RequirePackage{lastpage}
-\newcommand{\pageofpages}{%
-  \@ifundefined{pageof@\languagename}
-    {page \thepage\ of \pageref{LastPage}} % a default
-    {\@nameuse{pageof@\languagename}}%
- }
-% English is already default
-% \newcommand{\pageof@english}{page \thepage\ of \pageref{LastPage}}
-% French
-\newcommand{\pageof@french}{page \thepage\ sur \pageref{LastPage}}
-\newcommand{\pageof@danish}{side \thepage\ af \pageref{LastPage}}
-\newcommand{\pageof@german}{Seite \thepage\ von \pageref{LastPage}}
-\newcommand{\pageof@ngerman}{Seite \thepage\ von \pageref{LastPage}}
+
+\ipu@translator{ipu@pageofpages}
+    {page \thepage\ of \pageref{LastPage}}
+    {side \thepage\ af \pageref{LastPage}}
+    {Seite \thepage\ von \pageref{LastPage}}
+    {page \thepage\ sur \pageref{LastPage}}
 %
 \LoadClass{scrartcl}
 \RequirePackage{scrlayer-scrpage}
@@ -250,9 +275,10 @@
 \automark{section}
 %\renewcommand{\sectionmark}[1]{\markright{ {\thesection}.\ {#1}}{} }
 \ihead{\headmark}
-\ohead{\small\pageofpages}
+\ohead{\small\ipu@pageofpages}
+%\newcommand{\pageofpagesspace}{\settowidth{\dimen0}{\small\ipu@pageofpages}\hspace*{-\dimen0}}
 %\ihead{\MakeUppercase{\headmark}}
-%\ohead{\MakeUppercase{\pageofpages}}
+%\ohead{\MakeUppercase{\ipu@pageofpages}}
 \chead{}
 \cfoot[]{}
 %\setheadsepline[1.1\textwidth]{0.5pt}
@@ -343,43 +369,112 @@
 %
 \def\@drawCoverPicture{\node[anchor=center] at (path picture bounding box.center) {\includegraphics[height=\@coverpicturewidth,width=\@coverpicturewidth,keepaspectratio]{\@coverpicture}}}
 %
+%
+\ipu@translator{ipu@report}{Report}{Rapport}{Bericht}{Rapport}
+\ipu@translator{ipu@project}{Project}{Projekt}{Projekt}{Projet}
+\ipu@translator{ipu@number}{Project no.}{Projektnr.}{Projektnr.}{N\textsuperscript{o} de projet}
+\ipu@translator{ipu@author}{Author(s)}{Forfatter(e)}{Verfasser}{Auteur(s)}
+\ipu@translator{ipu@sent}{Sent to}{Sendt til}{Gesendet an}{Envoy\'e \`a}
+%
+\newcommand{\ipu@headleft}{
+    \noindent\begin{minipage}[t]{0.65\textwidth}
+    \noindent\textbf{\ipu@project: \@title}\\
+    \noindent\textbf{\ipu@number: \@projectid}\\
+    \noindent\textbf{\ipu@author:} \@author\\
+    \noindent\textbf{\ipu@sent:} \\
+    \end{minipage}
+}
+%
+%
+\ipu@translator{ipu@confidential}{Confidential}{Fortrolig}{Vertraulich}{Confidentiel}
+\ipu@translator{ipu@handout}{Hand out freely}{Kan frit udleveres}{\"Offentlich}{Distribu\'e librement}
+\ipu@translator{ipu@asagreed}{As agreed upon}{If\o{}lge aftale}{Nach Absprache}{Selon accord}
+\ipu@translator{ipu@foryour}{For your information}{Til orientering}{Zur Information}{Pour votre information}
+\ipu@translator{ipu@comments}{Comments, please}{Kommentarer udbedes}{Kommentare erbeten}{Commentaires, s.v.p.}
+%
+%\usepackage{tikz}
+\newcommand\@circled[1][none]{%[fill=orange,draw=none]
+  \tikz[baseline=(C.south)]\node[draw=black,thick,fill={#1},circle,inner sep=0em,minimum size=0.7em](C){};
+  %\tikz\node[draw,circle,minimum size=10pt](C) {g};
+}
+%
+\newcommand{\ipu@headright}{
+    \noindent\begin{minipage}[t]{0.3\textwidth}
+    \flushright
+    \noindent\ipu@confidential{} \ifipureport@conf\@circled[ipugreen]\else\@circled\fi\\
+    \noindent\ipu@handout{} \ifipureport@hand\@circled[ipugreen]\else\@circled\fi\\
+    \noindent\ipu@asagreed{} \ifipureport@asag\@circled[ipugreen]\else\@circled\fi\\
+    \noindent\ipu@foryour{} \ifipureport@info\@circled[ipugreen]\else\@circled\fi\\
+    \noindent\ipu@comments{} \ifipureport@comm\@circled[ipugreen]\else\@circled\fi\\
+    \end{minipage}
+}
+%
+\newsavebox\ipu@headbox
+\newlength\ipu@headlen
+\newlength\ipu@headhei
+\sbox\ipu@headbox{\fontsize{18pt}{25pt}\selectfont{}Bp\small\ipu@pageofpages}
+\settowidth\ipu@headlen{\usebox\ipu@headbox}
+\settoheight\ipu@headhei{\usebox\ipu@headbox}
+%
+\ifipureport@short%
+    %\newcommand{\negphantom}[1]{\settowidth{\dimen0}{{{\small\pageofpages}}}\hspace*{-\dimen0}}
+    \def\maketitle{%
+        \newcommand\shortheadmark{%
+            {\fontsize{18pt}{25pt}\selectfont\ipu@report}%
+            %\hspace*{2em}\@date%
+            \hfill\@date\hfill\hspace*{\ipu@headlen}%
+        }%
+        \markboth{\shortheadmark}{\shortheadmark}%
+        \vspace*{-2.25em}\par\noindent%
+        \unskip\ipu@headleft \hfill \ipu@headright%
+        \vspace*{1em}\par\noindent%
+        \unskip\rule{1.005\textwidth}{0.5pt}%
+    }
+    %
+    \newenvironment{synopsis}[1][\@title]{%
+        \ClassError{ipureport}%
+        {A synopsis cannot be used with short reports}%
+        {Consider using inline text or switch to the long report option}%
+}{}
+\else%
+\renewcommand\@dotsep{10000}
 \def\maketitle{%
-\thispagestyle{empty}
-\begin{tikzpicture}[remember picture,overlay] %
-\node[imgNode,minimum height=\headertop] (baseAnchor) at (current page.south) {};
-\node[imgNode,minimum width=1.05\textwidth,rectangle,above] (rectBox) at (baseAnchor.north) {
-  \ifx\@covercirclewidth\@empty\let\@covercirclewidth\@coverpicturewidth\fi
-  \tikz\node[minimum width=\@covercirclewidth,circle,draw=\ipureport@bgcolor,text=\ipureport@highlight,path picture={
-    \ifx\@coverpicture\@empty
-      \node[minimum width=\@coverpicturewidth,circle,fill=\ipureport@bgcolor!10,anchor=center] at (path picture bounding box.center) {};
-    \else
-      \@drawCoverPicture;
+    \thispagestyle{empty}
+    \begin{tikzpicture}[remember picture,overlay] %
+    \node[imgNode,minimum height=\headertop] (baseAnchor) at (current page.south) {};
+    \node[imgNode,minimum width=1.05\textwidth,rectangle,above] (rectBox) at (baseAnchor.north) {
+      \ifx\@covercirclewidth\@empty\let\@covercirclewidth\@coverpicturewidth\fi
+      \tikz\node[minimum width=\@covercirclewidth,circle,draw=\ipureport@bgcolor,text=\ipureport@highlight,path picture={
+        \ifx\@coverpicture\@empty
+          \node[minimum width=\@coverpicturewidth,circle,fill=\ipureport@bgcolor!10,anchor=center] at (path picture bounding box.center) {};
+        \else
+          \@drawCoverPicture;
+        \fi
+      }] {\@covertext};
+    };
+    %
+    % \node[imgNode,minimum width=1.05\textwidth,rectangle,above] (rectBox) at (baseAnchor.north) {
+    %   \ifx\@covercirclewidth\@empty\let\@covercirclewidth\@coverpicturewidth\fi
+    %   \tikz\node[inner sep = 0ex,minimum width=\@covercirclewidth,circle,draw=\ipureport@bgcolor,text=\ipureport@highlight] {
+    %     \ifx\@coverpicture\@empty
+    %       \tikz\node[inner sep = 0ex,minimum width=\@coverpicturewidth,circle,fill=\ipureport@bgcolor!10] {\large\@covertext};%at (path picture bounding box.center) {};
+    %     \else
+    %       \tikz\node[inner sep = 0ex] {\includegraphics[width=\@coverpicturewidth]{\@coverpicture}};
+    %     \fi
+    %   };
+    % };
+    %
+    \draw[thick,color=\ipureport@bgcolor] (rectBox.south west) -- (rectBox.south east) ;
+    \draw[thick,color=\ipureport@bgcolor] (rectBox.north west) -- (rectBox.north east) ;
+    \ifx\@subtitle\@empty{\node[inner sep=0pt, minimum width=0pt,above right] (subTitleNode) at (rectBox.north west) {};} % a default
+    \else{\node[txtNode, text width=0.9\textwidth,above right] (subTitleNode) at (rectBox.north west) {
+    \scalebox{1.4}{\begin{minipage}{0.75\textwidth}\usekomafont{subtitle}\@subtitle\end{minipage}}};}%
     \fi
-  }] {\@covertext};
-};
-%
-% \node[imgNode,minimum width=1.05\textwidth,rectangle,above] (rectBox) at (baseAnchor.north) {
-%   \ifx\@covercirclewidth\@empty\let\@covercirclewidth\@coverpicturewidth\fi
-%   \tikz\node[inner sep = 0ex,minimum width=\@covercirclewidth,circle,draw=\ipureport@bgcolor,text=\ipureport@highlight] {
-%     \ifx\@coverpicture\@empty
-%       \tikz\node[inner sep = 0ex,minimum width=\@coverpicturewidth,circle,fill=\ipureport@bgcolor!10] {\large\@covertext};%at (path picture bounding box.center) {};
-%     \else
-%       \tikz\node[inner sep = 0ex] {\includegraphics[width=\@coverpicturewidth]{\@coverpicture}};
-%     \fi
-%   };
-% };
-%
-\draw[thick,color=\ipureport@bgcolor] (rectBox.south west) -- (rectBox.south east) ;
-\draw[thick,color=\ipureport@bgcolor] (rectBox.north west) -- (rectBox.north east) ;
-\ifx\@subtitle\@empty{\node[inner sep=0pt, minimum width=0pt,above right] (subTitleNode) at (rectBox.north west) {};} % a default
-\else{\node[txtNode, text width=0.9\textwidth,above right] (subTitleNode) at (rectBox.north west) {
-\scalebox{1.4}{\begin{minipage}{0.75\textwidth}\usekomafont{subtitle}\@subtitle\end{minipage}}};}%
-\fi
-\node[txtNode,above right] (titleNode) at (subTitleNode.north west) {%
-\scalebox{1.4}{\begin{minipage}{0.75\textwidth}\usekomafont{title}\@title\end{minipage}}%
-};%
-\end{tikzpicture}
-\par\clearpage\setcounter{page}{1}%
+    \node[txtNode,above right] (titleNode) at (subTitleNode.north west) {%
+    \scalebox{1.4}{\begin{minipage}{0.75\textwidth}\usekomafont{title}\@title\end{minipage}}%
+    };%
+    \end{tikzpicture}
+    \par\clearpage\setcounter{page}{1}%
 }
 % 
 %
@@ -390,6 +485,8 @@
 }{%
 \par\clearpage\setcounter{page}{1}%
 }
+%
+\fi%
 %
 %
 \endinput

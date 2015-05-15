@@ -9,13 +9,14 @@
 % SETTINGS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Class options can be given as optional parameter at load time
-\documentclass{ipureport}
+\documentclass[short,hand]{ipureport}
 \usepackage[utf8]{inputenc}
 \title{Design af Energimåler II for Danfoss A/S}
 \subtitle{A little example on how to use the new report class}
 \author{Jorrit Wronski and His Colleague}
 \projectid{Projekt 7141}
 \keywords{report, IPU, LaTeX, eksempel}
+%\date{May 2015}
 %----------------------------------------------------------------------------------------
 
 %\covertext{Test mes sdfgsdfg sdfg sdfg sdfg sdfg sdf}
@@ -40,11 +41,10 @@
 
 \maketitle
 
-\begin{synopsis}%[Alternative Title]
-\section*{Synopsis}
-\blindtext
-
-\end{synopsis}
+%\begin{synopsis}%[Alternative Title]
+%\section*{Synopsis}
+%\blindtext
+%\end{synopsis}
 
 
 \tableofcontents
@@ -62,7 +62,15 @@
 \todo[inline]{[false]{crop} DeclareComplementaryOption{nocrop}{crop}}
 %%
 \todo[inline]{[false]{arial} DeclareComplementaryOption{helvet}{arial}}
-
+%
+\todo[inline]{[false]{short} DeclareComplementaryOption{long}{short}}
+%
+\todo[inline]{[false]{conf}}
+\todo[inline]{[false]{hand}}
+\todo[inline]{[false]{asag}}
+\todo[inline]{[false]{info}}
+\todo[inline]{[false]{comm}}
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Author Commands and Variables}
 
@@ -72,6 +80,9 @@ commands for additional information are \texttt{subtitle} and \texttt{keywords}.
 \todo[inline]{covertext{Test mes sdfgsdfg sdfg sdfg sdfg sdfg sdf}}
 \todo[inline]{coverpicturewidth{0.5 textwidth}}
 \todo[inline]{coverpicture{IPU-Logo-RGB}}
+
+\todo[inline]{sent to -- option for short report missing}
+\todo[inline]{options -- options for document handling of short report}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \blinddocument
