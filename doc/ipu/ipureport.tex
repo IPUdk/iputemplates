@@ -9,7 +9,7 @@
 % SETTINGS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Class options can be given as optional parameter at load time
-\documentclass[short,hand]{ipureport}
+\documentclass[short,comm]{ipureport}
 \usepackage[utf8]{inputenc}
 \title{Design af Energimåler II for Danfoss A/S}
 \subtitle{A little example on how to use the new report class}
@@ -30,6 +30,7 @@
 %
 \usepackage[math]{blindtext}
 \usepackage[colorinlistoftodos]{todonotes} % Todonotes package for nice todos
+\usepackage{siunitx}
 
 \begin{document}
 
@@ -52,16 +53,31 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \cleardoublepage
-\section{Package Options}
+\section{Classes and Options}
 
-\todo[inline]{[ipugrey]{bgcolor}                 \% default background colour}
-\todo[inline]{[ipugreen]{highlight}              \% default highlight colour}
-\todo[inline]{[IPU-Logo-RGB]{toplogo}            \% default institute logo}
-\todo[inline]{[a4paper]{papersize}               \% default paper size}
+\subsection{Colours, Logo and Papersize}
+
+You are not encouraged to change any of the colour settings or replace the IPU logo. By default, the circle colour for the cover picture is set to the normal ipugrey and the circle background is drawn with ipugrey at \SI{10}{\percent} intensity. The same colour is also used for zebra-striped table rows, if selected. The option to define this colour is called \texttt{bgcolor}, not the American spelling. 
+\todo[inline]{Implement table row colours}
+
+To highlight certain elements, ipugreen is used. This colour is also used for the dots on the frontpage of the shoert report and the cover text in the circle for the long report. This setting can be changed with the \texttt{highlight} class option.
+
+The IPU logo is provided as part of package, you can however change the image that is used in the top right corner by setting the option \texttt{toplogo} to a filename of any other file in the \LaTeX{} search path. 
+
+\todo[inline]{Add DTU logo option.}
+
+The papersize used for your document can be changed with the \texttt{papersize} option. At the moment, the values \texttt{a2paper}, \texttt{a3paper}, \texttt{a4paper} and \texttt{a5paper} are supported. 
+
 %%
 \todo[inline]{[false]{crop} DeclareComplementaryOption{nocrop}{crop}}
 %%
-\todo[inline]{[false]{arial} DeclareComplementaryOption{helvet}{arial}}
+\subsection{Font Selection}
+IPU uses Arial as main font. If you would like to use it too, you might have to install it. Including \texttt{\textbackslash{}usepackage\{uarial\}} gives you URW's Arial font and should work out of the box. If you have any problems with the package, try to find help online\footnote{\url{http://www.tug.org/fonts/getnonfreefonts/}}. If you do not use one of the IPU document classes, remember to set \texttt{\textbackslash{}renewcommand\{\textbackslash{}familydefault\}\{\textbackslash{}sfdefault\}} to switch to sans-serif fonts. 
+
+Arial was created as a clone of Helvetica, which part of most Latex distributions. If you do not select anything, the classes from the template package will use Helvetica as standard font. Most people will not notice the difference and those who do might appreciate this choice. 
+
+The boolean class option \texttt{arial} or \texttt{arial=true} turns on Arial as standard font. Instead of writing \texttt{arial=false}, you can also write \texttt{helvet} or \texttt{helvet=true}. \texttt{helvet} is defined as a complementary option, which always has the opposite value of \texttt{arial}. 
+
 %
 \todo[inline]{[false]{short} DeclareComplementaryOption{long}{short}}
 %

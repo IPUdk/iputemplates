@@ -1,12 +1,13 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ipureport}[2015/05/13 v1.1 - class for IPU reports in Latex]
+\ProvidesClass{ipureport}[2015/06/00 v1.2 - class for IPU reports in Latex]
 %======================================================================
-%===  ipureport - a class to make reports that comply with the IPU designguide
+%===  ipureport - a class that complies with the IPU designguide
 %
-% Written and maintained in 2015--
+% Written and maintained from March 2015 to now
 % by Jorrit Wronski (jowr@ipu.dk)
 % 
 % -- Changelog -- 
+% v1.2 - Split into subclasses with a common base class
 % v1.1 - Minor changes to include the short report templates 
 % v1.0 - Initial release with the long report templates
 %
@@ -23,6 +24,8 @@
 %\let\@subtitle\@empty
 \def\projectid#1{\gdef\@projectid{#1}}
 \let\@projectid\@empty
+\def\sent#1{\gdef\@sent{#1}}
+\let\@sent\@empty
 \def\keywords#1{\gdef\@keywords{#1}}
 \let\@keywords\@empty
 %
@@ -276,15 +279,10 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 %\renewcommand{\sectionmark}[1]{\markright{ {\thesection}.\ {#1}}{} }
 \ihead{\headmark}
 \ohead{\small\ipu@pageofpages}
-%\newcommand{\pageofpagesspace}{\settowidth{\dimen0}{\small\ipu@pageofpages}\hspace*{-\dimen0}}
-%\ihead{\MakeUppercase{\headmark}}
-%\ohead{\MakeUppercase{\ipu@pageofpages}}
 \chead{}
 \cfoot[]{}
-%\setheadsepline[1.1\textwidth]{0.5pt}
 \setheadsepline[1.087\textwidth]{0.5pt}
 \setkomafont{pageheadfoot}{\normalfont\sffamily\bfseries}
-%\setkomafont{pagenumber}{\normalfont\sffamily\small\bfseries}
 \RequirePackage{geometry}%
 \RequirePackage{crop}%
 %
@@ -376,14 +374,16 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 \ipu@translator{ipu@author}{Author(s)}{Forfatter(e)}{Verfasser}{Auteur(s)}
 \ipu@translator{ipu@sent}{Sent to}{Sendt til}{Gesendet an}{Envoy\'e \`a}
 %
-\newcommand{\ipu@headleft}{
-    \noindent\begin{minipage}[t]{0.65\textwidth}
-    \flushleft 
-    \unskip\noindent\textbf{\ipu@project: \@title}\\
-    \unskip\noindent\textbf{\ipu@number: \@projectid}\\
-    \unskip\noindent\textbf{\ipu@author:} \@author\\
-    \unskip\noindent\textbf{\ipu@sent:} \\
-    \end{minipage}
+\newcommand{\ipu@headleft}{%
+    \noindent\begin{minipage}[t]{0.65\textwidth}%
+    \flushleft%
+    \unskip\noindent\textbf{\ipu@project: \@title}\\%
+    \unskip\noindent\textbf{\ipu@number: \@projectid}\\%
+    \unskip\noindent\textbf{\ipu@author:} \@author\\%
+    \ifx\@sent\@empty\relax\else%
+    \unskip\noindent\textbf{\ipu@sent:} \@sent\\%
+    \fi%
+    \end{minipage}%
 }
 %
 %
@@ -402,11 +402,11 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 \newcommand{\ipu@headright}{
     \noindent\begin{minipage}[t]{0.3\textwidth}
     \flushright
-    \unskip\noindent\ipu@confidential{} \ifipureport@conf\@circled[ipugreen]\else\@circled\fi\\
-    \unskip\noindent\ipu@handout{} \ifipureport@conf\@circled\else\@circled[ipugreen]\fi\\
-    \unskip\noindent\ipu@asagreed{} \ifipureport@asag\@circled[ipugreen]\else\@circled\fi\\
-    \unskip\noindent\ipu@foryour{} \ifipureport@info\@circled[ipugreen]\else\@circled\fi\\
-    \unskip\noindent\ipu@comments{} \ifipureport@comm\@circled[ipugreen]\else\@circled\fi\\
+    \unskip\noindent\ipu@confidential{} \ifipureport@conf\@circled[\ipureport@highlight]\else\@circled\fi\\
+    \unskip\noindent\ipu@handout{} \ifipureport@conf\@circled\else\@circled[\ipureport@highlight]\fi\\
+    \unskip\noindent\ipu@asagreed{} \ifipureport@asag\@circled[\ipureport@highlight]\else\@circled\fi\\
+    \unskip\noindent\ipu@foryour{} \ifipureport@info\@circled[\ipureport@highlight]\else\@circled\fi\\
+    \unskip\noindent\ipu@comments{} \ifipureport@comm\@circled[\ipureport@highlight]\else\@circled\fi\\
     \end{minipage}
 }
 %
@@ -419,11 +419,13 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 %
 \ifipureport@short%
     %\newcommand{\negphantom}[1]{\settowidth{\dimen0}{{{\small\pageofpages}}}\hspace*{-\dimen0}}
+    \ohead{\small\@date{} ~ \ipu@pageofpages}
+    %
     \def\maketitle{%
         \newcommand\shortheadmark{%
             {\fontsize{18pt}{25pt}\selectfont\ipu@report}%
             %\hspace*{2em}\@date%
-            \hfill\@date\hfill\hspace*{\ipu@headlen}%
+            %\hfill\@date\hfill\hspace*{\ipu@headlen}%
         }%
         \markboth{\shortheadmark}{\shortheadmark}%
         \vspace*{-2.25em}\par\noindent%
@@ -438,7 +440,7 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
         {Consider using inline text or switch to the long report option}%
 }{}
 \else%
-\renewcommand\@dotsep{10000}
+    \renewcommand\@dotsep{10000}
 \def\maketitle{%
     \thispagestyle{empty}
     \begin{tikzpicture}[remember picture,overlay] %

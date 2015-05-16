@@ -18,4 +18,10 @@ If you have any problems with the package, http://www.tug.org/fonts/getnonfreefo
 help you. Remember to set `\renewcommand{\familydefault}{\sfdefault}` to switch to 
 sans-serif fonts. 
 
+Arial was created as a clone of Helvetica, which part of most Latex distributions. If you do 
+not select anything, the classes from the templates will use Helvetica as standard font. Most 
+people will not notice the difference and those who do might appreciate this choice. 
+
+
+
  
