@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ipureport}[2015/06/00 v1.2 - class for IPU reports in Latex]
+\ProvidesClass{ipureport}[2015/09/07 v1.2.1 - class for IPU reports in Latex]
 %======================================================================
 %===  ipureport - a class that complies with the IPU designguide
 %
@@ -7,9 +7,10 @@
 % by Jorrit Wronski (jowr@ipu.dk)
 % 
 % -- Changelog -- 
-% v1.2 - Split into subclasses with a common base class
-% v1.1 - Minor changes to include the short report templates 
-% v1.0 - Initial release with the long report templates
+% v1.2.1 - Added optional paramter to title, author, projectid, sent and keywords commands
+% v1.2.0 - Split into subclasses with a common base class
+% v1.1.0 - Minor changes to include the short report templates 
+% v1.0.0 - Initial release with the long report templates
 %
 %
 %======================================================================
@@ -20,13 +21,43 @@
 %
 % title, author, keywords and date exist already, strictly speaking, these are not options (but almost)
 % {\ifx\@subtitle\@empty\else\usekomafont{subtitle}{\@subtitle\par}\fi}
-%\def\subtitle#1{\gdef\@subtitle{#1}}
-%\let\@subtitle\@empty
-\def\projectid#1{\gdef\@projectid{#1}}
+%%\def\subtitle#1{\gdef\@subtitle{#1}}
+%%\let\@subtitle\@empty
+%\def\projectid#1{\gdef\@projectid{#1}}
+%\let\@projectid\@empty
+%\def\sent#1{\gdef\@sent{#1}}
+%\let\@sent\@empty
+%\def\keywords#1{\gdef\@keywords{#1}}
+%\let\@keywords\@empty
+%
+\def\title{\@ifnextchar[{\title@with}{\title@without}}
+\def\title@with[#1]#2{\gdef\ipu@title@custom{#1}\gdef\@title{#2}}
+\def\title@without#1{\gdef\@title{#1}}
+%\let\ipu@title@custom\@empty
+\let\@title\@empty
+%
+\def\author{\@ifnextchar[{\author@with}{\author@without}}
+\def\author@with[#1]#2{\gdef\ipu@author@custom{#1}\gdef\@author{#2}}
+\def\author@without#1{\gdef\@author{#1}}
+%\let\ipu@author@custom\@empty
+\let\@author\@empty
+%
+\def\projectid{\@ifnextchar[{\projectid@with}{\projectid@without}}
+\def\projectid@with[#1]#2{\gdef\ipu@projectid@custom{#1}\gdef\@projectid{#2}}
+\def\projectid@without#1{\gdef\@projectid{#1}}
+%\let\ipu@projectid@custom\@empty
 \let\@projectid\@empty
-\def\sent#1{\gdef\@sent{#1}}
+%
+\def\sent{\@ifnextchar[{\sent@with}{\sent@without}}
+\def\sent@with[#1]#2{\gdef\ipu@sent@custom{#1}\gdef\@sent{#2}}
+\def\sent@without#1{\gdef\@sent{#1}}
+%\let\ipu@sent@custom\@empty
 \let\@sent\@empty
-\def\keywords#1{\gdef\@keywords{#1}}
+%
+\def\keywords{\@ifnextchar[{\keywords@with}{\keywords@without}}
+\def\keywords@with[#1]#2{\gdef\ipu@keywords@custom{#1}\gdef\@keywords{#2}}
+\def\keywords@without#1{\gdef\@keywords{#1}}
+%\let\ipu@keywords@custom\@empty
 \let\@keywords\@empty
 %
 \def\covertext#1{\gdef\@covertext{#1}}
@@ -257,11 +288,15 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
     \@namedef{#1@german}{#4}%
     \@namedef{#1@french}{#5}%
     \@namedef{#1}{%
-        \@ifundefined{#1@\languagename}%
-        {#1@english}% a default
-        {\@nameuse{#1@\languagename}}%
-    }
-}
+        \@ifundefined{#1@custom}{%
+            \@ifundefined{#1@\languagename}%
+            {#1@english}% a default
+            {\@nameuse{#1@\languagename}}%
+        }{%
+            {\@nameuse{#1@custom}}%
+        }%
+    }%
+}%
 %
 \RequirePackage{lastpage}
 
@@ -369,16 +404,16 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 %
 %
 \ipu@translator{ipu@report}{Report}{Rapport}{Bericht}{Rapport}
-\ipu@translator{ipu@project}{Project}{Projekt}{Projekt}{Projet}
-\ipu@translator{ipu@number}{Project no.}{Projektnr.}{Projektnr.}{N\textsuperscript{o} de projet}
+\ipu@translator{ipu@title}{Project}{Projekt}{Projekt}{Projet}
+\ipu@translator{ipu@projectid}{Project no.}{Projektnr.}{Projektnr.}{N\textsuperscript{o} de projet}
 \ipu@translator{ipu@author}{Author(s)}{Forfatter(e)}{Verfasser}{Auteur(s)}
 \ipu@translator{ipu@sent}{Sent to}{Sendt til}{Gesendet an}{Envoy\'e \`a}
 %
 \newcommand{\ipu@headleft}{%
     \noindent\begin{minipage}[t]{0.65\textwidth}%
     \flushleft%
-    \unskip\noindent\textbf{\ipu@project: \@title}\\%
-    \unskip\noindent\textbf{\ipu@number: \@projectid}\\%
+    \unskip\noindent\textbf{\ipu@title: \@title}\\%
+    \unskip\noindent\textbf{\ipu@projectid: \@projectid}\\%
     \unskip\noindent\textbf{\ipu@author:} \@author\\%
     \ifx\@sent\@empty\relax\else%
     \unskip\noindent\textbf{\ipu@sent:} \@sent\\%
