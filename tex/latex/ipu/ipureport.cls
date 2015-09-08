@@ -7,6 +7,7 @@
 % by Jorrit Wronski (jowr@ipu.dk)
 % 
 % -- Changelog -- 
+% v1.2.2 - Added an option to remove the dots on top and to change the header 
 % v1.2.1 - Added optional paramter to title, author, projectid, sent and keywords commands
 % v1.2.0 - Split into subclasses with a common base class
 % v1.1.0 - Minor changes to include the short report templates 
@@ -29,6 +30,14 @@
 %\let\@sent\@empty
 %\def\keywords#1{\gdef\@keywords{#1}}
 %\let\@keywords\@empty
+%
+%\def\header{\@ifnextchar[{\header@with}{\header@without}}
+%\def\header@with[#1]#2{\gdef\ipu@header@custom{#1}\gdef\@header{#2}}
+%\def\header@without#1{\gdef\@header{#1}}
+%%\let\ipu@header@custom\@empty
+%\let\@header\@empty
+%
+\def\header#1{\gdef\ipu@header@custom{#1}}
 %
 \def\title{\@ifnextchar[{\title@with}{\title@without}}
 \def\title@with[#1]#2{\gdef\ipu@title@custom{#1}\gdef\@title{#2}}
@@ -93,6 +102,9 @@
 \DeclareBoolOption[false]{asag}
 \DeclareBoolOption[false]{info}
 \DeclareBoolOption[false]{comm}
+%
+\DeclareBoolOption[true]{dots}
+\DeclareComplementaryOption{nodots}{dots}
 %
 % Default option rule
 \DeclareDefaultOption{%
@@ -290,10 +302,10 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
     \@namedef{#1}{%
         \@ifundefined{#1@custom}{%
             \@ifundefined{#1@\languagename}%
-            {#1@english}% a default
+            {#1@english}% a default language
             {\@nameuse{#1@\languagename}}%
         }{%
-            {\@nameuse{#1@custom}}%
+            {\@nameuse{#1@custom}}% custom settings
         }%
     }%
 }%
@@ -403,7 +415,7 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 \def\@drawCoverPicture{\node[anchor=center] at (path picture bounding box.center) {\includegraphics[height=\@coverpicturewidth,width=\@coverpicturewidth,keepaspectratio]{\@coverpicture}}}
 %
 %
-\ipu@translator{ipu@report}{Report}{Rapport}{Bericht}{Rapport}
+\ipu@translator{ipu@header}{Report}{Rapport}{Bericht}{Rapport}
 \ipu@translator{ipu@title}{Project}{Projekt}{Projekt}{Projet}
 \ipu@translator{ipu@projectid}{Project no.}{Projektnr.}{Projektnr.}{N\textsuperscript{o} de projet}
 \ipu@translator{ipu@author}{Author(s)}{Forfatter(e)}{Verfasser}{Auteur(s)}
@@ -434,15 +446,17 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
   %\tikz\node[draw,circle,minimum size=10pt](C) {g};
 }
 %
-\newcommand{\ipu@headright}{
-    \noindent\begin{minipage}[t]{0.3\textwidth}
-    \flushright
-    \unskip\noindent\ipu@confidential{} \ifipureport@conf\@circled[\ipureport@highlight]\else\@circled\fi\\
-    \unskip\noindent\ipu@handout{} \ifipureport@conf\@circled\else\@circled[\ipureport@highlight]\fi\\
-    \unskip\noindent\ipu@asagreed{} \ifipureport@asag\@circled[\ipureport@highlight]\else\@circled\fi\\
-    \unskip\noindent\ipu@foryour{} \ifipureport@info\@circled[\ipureport@highlight]\else\@circled\fi\\
-    \unskip\noindent\ipu@comments{} \ifipureport@comm\@circled[\ipureport@highlight]\else\@circled\fi\\
-    \end{minipage}
+\newcommand{\ipu@headright}{%
+    \noindent\begin{minipage}[t]{0.3\textwidth}%
+    \flushright%
+    \ifipureport@dots{%
+        \unskip\noindent\ipu@confidential{} \ifipureport@conf\@circled[\ipureport@highlight]\else\@circled\fi\\
+        \unskip\noindent\ipu@handout{} \ifipureport@conf\@circled\else\@circled[\ipureport@highlight]\fi\\
+        \unskip\noindent\ipu@asagreed{} \ifipureport@asag\@circled[\ipureport@highlight]\else\@circled\fi\\
+        \unskip\noindent\ipu@foryour{} \ifipureport@info\@circled[\ipureport@highlight]\else\@circled\fi\\
+        \unskip\noindent\ipu@comments{} \ifipureport@comm\@circled[\ipureport@highlight]\else\@circled\fi\\
+    }\else ~ \fi
+    \end{minipage}%
 }
 %
 \newsavebox\ipu@headbox
@@ -458,7 +472,7 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
     %
     \def\maketitle{%
         \newcommand\shortheadmark{%
-            {\fontsize{18pt}{25pt}\selectfont\ipu@report}%
+            {\fontsize{18pt}{25pt}\selectfont\ipu@header}%
             %\hspace*{2em}\@date%
             %\hfill\@date\hfill\hspace*{\ipu@headlen}%
         }%

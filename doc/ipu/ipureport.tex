@@ -9,7 +9,7 @@
 % SETTINGS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Class options can be given as optional parameter at load time
-\documentclass[short,comm]{ipureport}
+\documentclass[short,comm,dots]{ipureport}
 \usepackage[utf8]{inputenc}
 \title{Design af Energimåler II for Danfoss A/S}
 \subtitle{A little example on how to use the new report class}
@@ -78,6 +78,7 @@ Arial was created as a clone of Helvetica, which part of most Latex distribution
 
 The boolean class option \texttt{arial} or \texttt{arial=true} turns on Arial as standard font. Instead of writing \texttt{arial=false}, you can also write \texttt{helvet} or \texttt{helvet=true}. \texttt{helvet} is defined as a complementary option, which always has the opposite value of \texttt{arial}. 
 
+\subsection{Header Indicators}
 %
 \todo[inline]{[false]{short} DeclareComplementaryOption{long}{short}}
 %
@@ -87,11 +88,14 @@ The boolean class option \texttt{arial} or \texttt{arial=true} turns on Arial as
 \todo[inline]{[false]{info}}
 \todo[inline]{[false]{comm}}
 %
+\todo[inline]{[false]{nodots}} Overwrites the others
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Author Commands and Variables}
 
 For every project, you should define \texttt{title}, \texttt{author} and \texttt{projectid}. The optional 
-commands for additional information are \texttt{subtitle} and \texttt{keywords}. 
+commands for additional information are \texttt{subtitle} and \texttt{keywords}. Use \texttt{header} to replace the default 
+headline for the short reports. 
 
 \todo[inline]{covertext{Test mes sdfgsdfg sdfg sdfg sdfg sdfg sdf}}
 \todo[inline]{coverpicturewidth{0.5 textwidth}}
