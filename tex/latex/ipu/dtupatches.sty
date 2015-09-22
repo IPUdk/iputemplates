@@ -1,0 +1,55 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{dtupatches}[2015/09/22 v1.0.0 - Package to patch commands from the DTU classes]
+%======================================================================
+%===  dtupatches - Package to patch commands from the DTU classes
+%
+% Written and maintained from September 2015 to now
+% by Jorrit Wronski (jowr@ipu.dk)
+% 
+% -- Changelog -- 
+% v1.0.0 - Initial release with patches for IPU/DTU beamer presentations
+%
+%
+%======================================================================
+%===  Setting up the class and defining the options
+\RequirePackage{trace}
+\newcommand\stdout[1]{\PackageInfo{dtupatches}{#1}}
+%\newcommand\stdout[1]{\PackageWarningNoLine{dtupatches}{#1}}
+%
+%
+%\let\oldemph\emph
+%\renewcommand{\emph}[1]{\textbf{\oldemph{#1}}}
+%
+\newlength{\ipu@logowidth}%
+\setlength{\ipu@logowidth}{0mm}%
+\newlength{\ipu@logoheight}%
+\setlength{\ipu@logoheight}{0mm}%
+\newlength{\ipu@logooffset}%
+\setlength{\ipu@logooffset}{0mm}%
+\DeclareOption{beamer}{%
+  \setlength{\ipu@logowidth}{\dimDTULogoHeight}%
+  \setlength{\ipu@logoheight}{0.4717\ipu@logowidth}%
+  \setlength{\ipu@logooffset}{\ipu@logowidth}%
+  \addtolength{\ipu@logooffset}{-\ipu@logoheight}%
+  \let\oldinsertDTULogo\insertDTULogo
+  \renewcommand{\insertDTULogo}{%
+    \raisebox{\ipu@logooffset}{%
+    \includegraphics[height=\ipu@logoheight]{IPU-Logo-RGB}%
+    }\hspace*{\ipu@logoheight}%
+    \oldinsertDTULogo%
+  }%
+  \let\oldinsertdepartmentandinstitute\insertdepartmentandinstitute
+  \renewcommand{\insertdepartmentandinstitute}{%
+    IPU \& \oldinsertdepartmentandinstitute %
+  }%
+  \let\oldinsertDTUWhiteLogo\insertDTUWhiteLogo
+  \renewcommand{\insertDTUWhiteLogo}{%
+    \raisebox{\ipu@logooffset}{%
+    \includegraphics[height=\ipu@logoheight]{IPU-Logo-RGB_white}%
+    }\hspace*{\ipu@logoheight}%
+    %\oldinsertDTUWhiteLogo %
+    \includegraphics[height=\dimDTULogoHeight]{tex_dtu_logo_neg}
+  }%
+}
+
+\ProcessOptions\relax
