@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{dtupatches}[2015/09/22 v1.0.0 - Package to patch commands from the DTU classes]
+\ProvidesPackage{dtupatches}[2015/09/22 v1.0.0 - Patch commands from the DTU classes]
 %======================================================================
-%===  dtupatches - Package to patch commands from the DTU classes
+%===  dtupatches - Patch commands from the DTU classes
 %
 % Written and maintained from September 2015 to now
 % by Jorrit Wronski (jowr@ipu.dk)
@@ -12,7 +12,7 @@
 %
 %======================================================================
 %===  Setting up the class and defining the options
-\RequirePackage{trace}
+%\RequirePackage{trace}
 \newcommand\stdout[1]{\PackageInfo{dtupatches}{#1}}
 %\newcommand\stdout[1]{\PackageWarningNoLine{dtupatches}{#1}}
 %
@@ -26,7 +26,9 @@
 \setlength{\ipu@logoheight}{0mm}%
 \newlength{\ipu@logooffset}%
 \setlength{\ipu@logooffset}{0mm}%
+%
 \DeclareOption{beamer}{%
+  \stdout{detected beamer option, patching slideshow}
   \setlength{\ipu@logowidth}{\dimDTULogoHeight}%
   \setlength{\ipu@logoheight}{0.4717\ipu@logowidth}%
   \setlength{\ipu@logooffset}{\ipu@logowidth}%

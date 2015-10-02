@@ -393,7 +393,7 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 \RequirePackage[T1]{fontenc}
 %\RequirePackage{inconsolata}
 %\RequirePackage{mathptmx}
-\RequirePackage{cmbright}
+%\RequirePackage{cmbright}
 %\RequirePackage{arevmath}
 %\RequirePackage{eulervm}
 %\RequirePackage[math]{iwona}
@@ -405,6 +405,10 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 %\RequirePackage{inconsolata}
 \RequirePackage{sourcecodepro}
 \renewcommand*{\familydefault}{\sfdefault}
+%
+\RequirePackage[slantedGreek]{sfmath}
+%\usepackage[EULERGREEK]{sansmath}
+%\sansmath
 %
 \setkomafont{title}{\raggedright\normalfont\sffamily\bfseries\Huge}
 \setkomafont{subtitle}{\raggedright\normalfont\sffamily\mdseries\Large}
