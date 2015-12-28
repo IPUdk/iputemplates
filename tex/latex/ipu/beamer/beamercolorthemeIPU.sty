@@ -1,0 +1,25 @@
+% beamercolorthemeIPU.sty
+% This file is a part of the IPU beamer package and makes sure that
+% the IPU colours are available. This file does neither redefine 
+% beamer settings, nor does it add new configurations. 
+%
+% Changelog
+% 2015-12-28 jowr Copied from DTU package
+%
+%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Load the file if it exists, throw a warning otherwise
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\InputIfFileExists{ipucolours}{
+    \PackageInfo{ipubeamer}{Successfully loaded the IPU colours.}
+  }{
+    \PackageWarning{ipubeamer}{Could not load the colours from ipucolours.sty. This compilation is likely to fail.}
+  }%
+
+\mode<presentation>
+
+% The new design does not need any adaption here, black is 
+% the default colour. 
+
+\mode<all> 
