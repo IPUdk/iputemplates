@@ -126,18 +126,11 @@
 %
 %======================================================================
 %===  Define functions to be called according to the options
-\InputIfFileExists{dtucolours}{
-  \ClassInfo{ipureport}{Successfully loaded the DTU colours}
-}{
-  \ClassInfo{ipureport}{DTU colours not installed, defining colours here instead}
-  % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  % Define colours for IPU related documents, from IPU Designguide (16.09.2008)
-  % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \providecolor{ipugreen}     {rgb}{0.00, 0.40, 0.20} % Dark green, 1st  standard colour  - CMYK: 088/000/095/026 - RGB: 000/102/051
-  \providecolor{ipugrey}      {rgb}{0.45, 0.47, 0.49} % Dark grey, 2nd standard colour    - CMYK: 015/000/000/075 - RGB: 114/121/126
-  \providecolor{ipulightgreen}{rgb}{0.36, 0.67, 0.15} % Light green, 1sr secondary colour - CMYK: 070/000/100/000 - RGB: 091/172/038
-  \providecolor{ipulightgrey} {rgb}{0.85, 0.86, 0.87} % Light grey, 2nd secondary colour  - CMYK: 003/000/003/020 - RGB: 217/220/222
-}%
+\InputIfFileExists{ipucolours}{
+    \ClassInfo{ipureport}{Successfully loaded the IPU colours.}
+  }{
+    \ClassWarning{ipureport}{Could not load the colours from ipucolours.sty. This compilation is likely to fail.}
+  }%
 %
 \RequirePackage{etoolbox}
 \long\def\ifequal#1#2#3#4{\expandafter\ifstrequal\expandafter{#1}{#2}{#3}{#4}}
