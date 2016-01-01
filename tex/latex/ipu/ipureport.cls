@@ -391,11 +391,12 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 %======================================================================
 %===  New title page and fonts
 \RequirePackage[T1]{fontenc}
-%\RequirePackage{inconsolata}
 %\RequirePackage{mathptmx}
 %\RequirePackage{cmbright}
-%\RequirePackage{arevmath}
+\RequirePackage{arevmath}
+%\RequirePackage{hvmath}
 %\RequirePackage{eulervm}
+%\RequirePackage{euler}
 %\RequirePackage[math]{iwona}
 \ifipureport@arial%
   \RequirePackage[scaled]{uarial}
