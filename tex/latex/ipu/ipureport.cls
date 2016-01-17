@@ -400,7 +400,7 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 \RequirePackage{sourcecodepro}
 \renewcommand*{\familydefault}{\sfdefault}
 %
-\RequirePackage{sfmath}
+%\RequirePackage{sfmath}
 %\RequirePackage[slantedGreek]{sfmath}
 %\usepackage[EULERGREEK]{sansmath}
 %\sansmath
