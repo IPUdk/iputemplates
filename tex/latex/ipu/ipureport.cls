@@ -281,9 +281,9 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 %
 %======================================================================
 %===  Load the class and set the paper size
-\PassOptionsToPackage{english,french,ngerman,danish,british}{babel}%
+\PassOptionsToPackage{english,french,ngerman,danish,british,dutch}{babel}%
 \RequirePackage{babel}
-\newcommand\ipu@translator[5]{
+\newcommand\ipu@translator[6]{
     %\ifx{#2}\empty\relax\else\@namedef{#1@english}{#2}\fi
     %\ifx{#2}\empty\relax\else\@namedef{#1@british}{#2}\fi
     \@namedef{#1@english}{#2}%
@@ -292,6 +292,7 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
     \@namedef{#1@ngerman}{#4}%
     \@namedef{#1@german}{#4}%
     \@namedef{#1@french}{#5}%
+    \@namedef{#1@dutch}{#6}%
     \@namedef{#1}{%
         \@ifundefined{#1@custom}{%
             \@ifundefined{#1@\languagename}%
@@ -310,6 +311,7 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
     {Side \thepage\ af \pageref{LastPage}}
     {Seite \thepage\ von \pageref{LastPage}}
     {Page \thepage\ sur \pageref{LastPage}}
+    {Pagina \thepage\ van \pageref{LastPage}}
 %
 \LoadClass{scrartcl}
 \RequirePackage{scrlayer-scrpage}
@@ -414,11 +416,11 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 \def\@drawCoverPicture{\node[anchor=center] at (path picture bounding box.center) {\includegraphics[height=\@coverpicturewidth,width=\@coverpicturewidth,keepaspectratio]{\@coverpicture}}}
 %
 %
-\ipu@translator{ipu@header}{Report}{Rapport}{Bericht}{Rapport}
-\ipu@translator{ipu@title}{Project}{Projekt}{Projekt}{Projet}
-\ipu@translator{ipu@projectid}{Project no.}{Projektnr.}{Projektnr.}{N\textsuperscript{o} de projet}
-\ipu@translator{ipu@author}{Author(s)}{Forfatter(e)}{Verfasser}{Auteur(s)}
-\ipu@translator{ipu@sent}{Sent to}{Sendt til}{Gesendet an}{Envoy\'e \`a}
+\ipu@translator{ipu@header}{Report}{Rapport}{Bericht}{Rapport}{Rapport}
+\ipu@translator{ipu@title}{Project}{Projekt}{Projekt}{Projet}{Project}
+\ipu@translator{ipu@projectid}{Project no.}{Projektnr.}{Projektnr.}{N\textsuperscript{o} de projet}{Projectnr.}
+\ipu@translator{ipu@author}{Author(s)}{Forfatter(e)}{Verfasser}{Auteur(s)}{Auteur(s)}
+\ipu@translator{ipu@sent}{Sent to}{Sendt til}{Gesendet an}{Envoy\'e \`a}{Verzonden naar}
 %
 \newcommand{\ipu@headleft}{%
     \noindent\begin{minipage}[t]{0.65\textwidth}%
@@ -433,11 +435,11 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 }
 %
 %
-\ipu@translator{ipu@confidential}{Confidential}{Fortrolig}{Vertraulich}{Confidentiel}
-\ipu@translator{ipu@handout}{Hand out freely}{Kan frit udleveres}{\"Offentlich}{Distribu\'e librement}
-\ipu@translator{ipu@asagreed}{As agreed upon}{If\o{}lge aftale}{Nach Absprache}{Selon accord}
-\ipu@translator{ipu@foryour}{For your information}{Til orientering}{Zur Information}{Pour votre information}
-\ipu@translator{ipu@comments}{Comments, please}{Kommentarer udbedes}{Kommentare erbeten}{Commentaires, s.v.p.}
+\ipu@translator{ipu@confidential}{Confidential}{Fortrolig}{Vertraulich}{Confidentiel}{Vertrouwelijk}
+\ipu@translator{ipu@handout}{Hand out freely}{Kan frit udleveres}{\"Offentlich}{Distribu\'e librement}{Vrij te distribueren}
+\ipu@translator{ipu@asagreed}{As agreed upon}{If\o{}lge aftale}{Nach Absprache}{Selon accord}{Zoals overeengekomen}
+\ipu@translator{ipu@foryour}{For your information}{Til orientering}{Zur Information}{Pour votre information}{Ter informatie}
+\ipu@translator{ipu@comments}{Comments, please}{Kommentarer udbedes}{Kommentare erbeten}{Commentaires, s.v.p.}{Opmerkingen, s.v.p.}
 %
 %\usepackage{tikz}
 \newcommand\@circled[1][none]{%[fill=orange,draw=none]
