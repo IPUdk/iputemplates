@@ -63,6 +63,7 @@ def plot_image_and_patch(ax, prng, size=(20, 20)):
     """Plot an image with random values and superimpose a circular patch.
     """
     values = prng.random_sample(size=size)
+    #values = np.outer(np.arange(0,1,0.01),np.ones(10))
     ax.imshow(values, interpolation='none')
     c = plt.Circle((5, 5), radius=5, label='patch')
     ax.add_patch(c)
