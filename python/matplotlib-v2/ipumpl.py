@@ -20,7 +20,7 @@ def temp_style_file(name):
         os.makedirs(stylelib_path)
 
     srcname = os.path.abspath(name)
-    dstname = os.path.join(stylelib_path, name)
+    dstname = os.path.join(stylelib_path, os.path.basename(name))
     if not os.path.exists(srcname):
         raise RuntimeError('Cannot use file at "' + srcname + '". This file does not exist.')
     if os.path.exists(dstname):
