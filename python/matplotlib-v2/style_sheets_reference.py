@@ -129,23 +129,26 @@ if __name__ == "__main__":
         style for style in plt.style.available if style != 'classic')
     style_list = ['default', 'classic', 'seaborn-paper']
 
-    # Plot a demonstration figure for every available style sheet.
-    for style_label in style_list:
-        with plt.style.context(style_label):
-            fig = plot_figure(style_label=style_label)
-    
-    
-    #plt.style.use(['seaborn-paper', 'ipu'])
-    plt.show()
+    ## Plot a demonstration figure for every available style sheet.
+    #for style_label in style_list:
+    #    with plt.style.context(style_label):
+    #        fig = plot_figure(style_label=style_label)
+    ##plt.style.use(['seaborn-paper', 'ipu'])
+    #plt.show()
     
     print('# styles available:', len(plt.style.available))
     
     from ipumpl import temp_style_file
 
-    with temp_style_file('dummy.mplstyle'):
+    with temp_style_file('ipu.mplstyle'):
         print('# before reload:', len(plt.style.available))
 
         plt.style.reload_library()
         print('# after reload:', len(plt.style.available))
     
+        style_list.append('ipu')
+        for style_label in style_list:
+            with plt.style.context(style_label):
+                fig = plot_figure(style_label=style_label)
+        plt.show()
     
