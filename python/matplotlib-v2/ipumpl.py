@@ -1,6 +1,8 @@
 from __future__ import print_function
 
 import os
+import warnings
+
 from contextlib import contextmanager
 
 import matplotlib.pyplot as plt
@@ -23,7 +25,8 @@ def temp_style_file(name):
     if not os.path.exists(srcname):
         raise RuntimeError('Cannot use file at "' + srcname + '". This file does not exist.')
     if os.path.exists(dstname):
-        raise RuntimeError('Cannot create a temporary file at "' + dstname + '". This file exists already.')
+        #raise RuntimeError('Cannot create a temporary file at "' + dstname + '". This file exists already.')
+        warnings.warn('Overwriting the temporary file at "' + dstname + '".')
     
     #with open(filename, 'w'):
     #    pass
