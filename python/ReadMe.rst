@@ -39,7 +39,7 @@ After activating the new theme, you can use the standard plotting functions
 and enjoy the new colours and other settings. For comparison, the default 
 settings for matplotlib produce plots like this
 
-.. image:: default_theme.png
+.. image:: https://raw.githubusercontent.com/IPUdk/iputemplates/master/python/default_theme.png
    :align: middle
   
 and the new style makes the exact same plotting commands render images that 
