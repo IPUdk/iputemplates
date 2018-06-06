@@ -45,14 +45,14 @@ settings for matplotlib produce plots like this
 and the new style makes the exact same plotting commands render images that 
 look like this
 
-.. image:: ipu_theme.png
+.. image:: https://raw.githubusercontent.com/IPUdk/iputemplates/master/python/ipu_theme.png
    :align: middle
 
 For 3D and surface plots, the new colour maps can produce figures like this
 
-.. image:: mpl_example.png
+.. image:: https://raw.githubusercontent.com/IPUdk/iputemplates/master/python/mpl_example.png
    :align: middle
-   
+
 but be warned, standard colour maps like ``viridis`` are still superior 
 with respect to legibility and printing in greyscale. Note also that the 
 default colour map has not been changed and you have to explicitly select 
