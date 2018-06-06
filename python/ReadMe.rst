@@ -43,21 +43,24 @@ and enjoy the new colours and other settings. For comparison, the default
 settings for matplotlib produce plots like this
 
 .. image:: https://raw.githubusercontent.com/IPUdk/iputemplates/master/python/default_theme.png
-     :align: middle
-     :alt: Default matplotlib plots
+    :width: 100%
+    :align: center
+    :alt: Default matplotlib plots
   
 and the new style makes the exact same plotting commands render images that 
 look like this
 
 .. image:: https://raw.githubusercontent.com/IPUdk/iputemplates/master/python/ipu_theme.png
-     :align: middle
-     :alt: matplotlib plots with IPU theme
+    :width: 100%
+    :align: center
+    :alt: matplotlib plots with IPU theme
 
 For 3D and surface plots, the new colour maps can produce figures like this
 
 .. image:: https://raw.githubusercontent.com/IPUdk/iputemplates/master/python/mpl_example.png
-     :align: middle
-     :alt: matplotlib surface plots with IPU colour map
+    :width: 100%
+    :align: center
+    :alt: matplotlib surface plots with IPU colour map
 
 but be warned, standard colour maps like ``viridis`` are still superior 
 with respect to legibility and printing in greyscale. Note also that the 
