@@ -57,12 +57,57 @@
 
 \subsection{Colours, Logo and Papersize}
 
-You are not encouraged to change any of the colour settings or replace the IPU logo. By default, the circle colour for the cover picture is set to the normal ipugrey and the circle background is drawn with ipugrey at \SI{10}{\percent} intensity. The same colour is also used for zebra-striped table rows, if selected. The option to define this colour is called \texttt{bgcolor}, not the American spelling. 
+You are not encouraged to change any of the colour settings or replace the IPU logo. By default, the circle colour for the cover picture is set to the normal ipugrey and the circle background is drawn with ipugrey at \SI{10}{\percent} intensity. The same colour is also used for zebra-striped table rows, if selected. The option to define this colour is called \texttt{bgcolor}, note the American spelling. 
 \todo[inline]{Implement table row colours}
 
 To highlight certain elements, ipugreen is used. This colour is also used for the dots on the frontpage of the shoert report and the cover text in the circle for the long report. This setting can be changed with the \texttt{highlight} class option.
 
 The IPU logo is provided as part of package, you can however change the image that is used in the top right corner by setting the option \texttt{toplogo} to a filename of any other file in the \LaTeX{} search path. 
+
+
+
+\subsubsection{IPU 2018}
+The coprorate design has changed in November 2018 and a new colour scheme has to be created: The colour scheme used for plots is based on the works of Kindlmann et al.
+%\footnote{\fullcite{Kindlmann2002}}
+. It is created by modifying the existing cubehelix algorithm by Green
+%\footnote{\fullcite{cubehelix}}
+ in the implementations of \texttt{matplotlib}
+ %\footnote{\fullcite{Hunter2007}}
+ . Line colours are sampled from the aforementioned maps in evenly spaced intervals skipping the lower and the upper grey-scale intensity regions denoted by the vertical bars%\footnote{Colour schemes: \\
+\newcommand\hheight{0.75}\\
+\makebox[\widthof{~Kindlmann et al.}]{\hfill Kindlmann et al.}:
+\includegraphics[height=\hheight em]{colours/colourmap_matteoniccoli} - 
+\includegraphics[height=\hheight em]{colours/colourmap_matteoniccoli_grey} (original) \\
+\makebox[\widthof{~Kindlmann et al.}]{\hfill IPU colours}:
+\includegraphics[height=\hheight em]{colours/colourmap_cubehelix_kindl} - 
+\includegraphics[height=\hheight em]{colours/colourmap_cubehelix_kindl_grey} (adaption) \\
+\makebox[\widthof{~Kindlmann et al.}]{\hfill Green}:
+\includegraphics[height=\hheight em]{colours/colourmap_cubehelix_alt} - 
+\includegraphics[height=\hheight em]{colours/colourmap_cubehelix_alt_grey} (original)%}.
+
+
+%\definecolor{IPUdarkblue}{HTML}{#09285d}
+%\definecolor{IPUdarkblue}{rgb}{(0.03707688311079281, 0.1575158489133046, 0.3665349648484976)}
+%\definecolor{IPUteal}{HTML}{#00736b}
+%\definecolor{IPUteal}{rgb}{(0.0, 0.45177932391406056, 0.42070350628569453)}
+%\definecolor{IPUgreen}{HTML}{#1bb339}
+%\definecolor{IPUgreen}{rgb}{(0.10636981679961377, 0.7030871213847766, 0.22340721209323416)}
+%\definecolor{IPUlightbrown}{HTML}{#a0c53f}
+%\definecolor{IPUlightbrown}{rgb}{(0.6282884950424713, 0.7739775224607538, 0.24559323885034906)}
+
+\definecolor{name1}{rgb}{0.03707688311079281, 0.1575158489133046, 0.3665349648484976}
+\definecolor{name2}{rgb}{0.0, 0.45177932391406056, 0.42070350628569453}
+\definecolor{name3}{rgb}{0.10636981679961377, 0.7030871213847766, 0.22340721209323416}
+\definecolor{name4}{rgb}{0.6282884950424713, 0.7739775224607538, 0.24559323885034906}
+
+~\\
+{\color[rgb]{0.03707688311079281, 0.1575158489133046, 0.3665349648484976} This text will appear in dark blue.} \\
+{\color[rgb]{0.0, 0.45177932391406056, 0.42070350628569453} This text will appear in teal.} \\
+{\color[rgb]{0.10636981679961377, 0.7030871213847766, 0.22340721209323416} This text will appear in green.} \\
+{\color[rgb]{0.6282884950424713, 0.7739775224607538, 0.24559323885034906} This text will appear light brown.} \\
+
+
+\subsubsection{DTU Logo}
 
 \todo[inline]{Add DTU logo option.}
 
