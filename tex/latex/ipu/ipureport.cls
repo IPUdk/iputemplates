@@ -210,7 +210,7 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 \FPmul\ipureport@tmp{7.5}{\ipureport@sizeratio}
 \newlength{\ipulogotop}%
 \setlength{\ipulogotop}{\ipureport@tmp mm} 
-\FPmul\ipureport@tmp{ 10}{\ipureport@sizeratio}
+\FPmul\ipureport@tmp{ 15}{\ipureport@sizeratio}
 \newlength{\ipulogoheight}%
 \setlength{\ipulogoheight}{\ipureport@tmp mm}
 %
@@ -388,11 +388,19 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 \RequirePackage[T1]{fontenc}
 %\RequirePackage{mathptmx}
 %\RequirePackage{cmbright}
-\RequirePackage{arevmath}
+%\RequirePackage{arevmath}
 %\RequirePackage{hvmath}
 %\RequirePackage{eulervm}
 %\RequirePackage{euler}
 %\RequirePackage[math]{iwona}
+%\RequirePackage{lm-math}
+%\usepackage[sfdefault,scaled=.85]{FiraSans}%
+%\usepackage{newtxsf}
+%\usepackage{newtxsf}
+%\usepackage[sfdefault]{AlegreyaSans}
+%\usepackage[italic]{mathastext}
+%\usepackage{asana-math}
+\usepackage{sansmathfonts}
 \ifipureport@arial%
   \RequirePackage[scaled]{uarial}
 \else%
