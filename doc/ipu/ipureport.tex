@@ -128,7 +128,18 @@ IPU uses Arial as main font. If you would like to use it too, you might have to 
 
 Arial was created as a clone of Helvetica, which part of most Latex distributions. If you do not select anything, the classes from the template package will use Helvetica as standard font. Most people will not notice the difference and those who do might appreciate this choice. 
 
-The boolean class option \texttt{arial} or \texttt{arial=true} turns on Arial as standard font. Instead of writing \texttt{arial=false}, you can also write \texttt{helvet} or \texttt{helvet=true}. \texttt{helvet} is defined as a complementary option, which always has the opposite value of \texttt{arial}. 
+The boolean class options exist for the three fonts Roboto, Arial and Helvetica. You can activate the different fonts using the options \texttt{arial} or \texttt{arial=true} and similarly for \texttt{helvet} and \texttt{roboto}.Please note that the arguments are non-exclusive, but override each other if activated simultaneously possibly yielding unexpected results.
+
+\begin{flushright}
+
+{%\fontfamily{roboto}\selectfont 
+\roboto Roboto: Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz}
+
+{\fontfamily{ua1}\selectfont Arial: Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz}
+
+{\fontfamily{phv}\selectfont Helvetica: Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz}
+
+\end{flushright}
 
 \subsection{Header Indicators}
 %

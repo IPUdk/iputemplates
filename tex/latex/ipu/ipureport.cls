@@ -91,7 +91,9 @@
 \DeclareComplementaryOption{nocrop}{crop}
 %
 \DeclareBoolOption[false]{arial}
-\DeclareComplementaryOption{helvet}{arial}
+%\DeclareComplementaryOption{helvet}{arial}
+\DeclareBoolOption[false]{roboto}
+\DeclareBoolOption[true]{helvet}
 %
 \DeclareBoolOption[false]{short}
 \DeclareComplementaryOption{long}{short}
@@ -401,11 +403,24 @@ possible values are: a2paper, a3paper, a4paper or a5paper}
 %\usepackage[italic]{mathastext}
 %\usepackage{asana-math}
 \usepackage{sansmathfonts}
+
+\RequirePackage[sfdefault]{roboto}
+\RequirePackage[scaled]{uarial}
+\RequirePackage[scaled]{helvet}
+
+\ifipureport@roboto%
+  \RequirePackage[sfdefault]{roboto}
+  %\RequirePackage[sfdefault,light]{roboto}
+\fi%
+
 \ifipureport@arial%
   \RequirePackage[scaled]{uarial}
-\else%
+\fi%
+
+\ifipureport@helvet%
   \RequirePackage[scaled]{helvet}
 \fi%
+
 %\RequirePackage{inconsolata}
 \RequirePackage{sourcecodepro}
 \renewcommand*{\familydefault}{\sfdefault}
