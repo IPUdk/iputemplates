@@ -10,10 +10,10 @@
 
     % logo
     \begin{tikzpicture}[remember picture,overlay]
-    \node[anchor=north west, 
-          xshift=1mm, 
+    \node[anchor=north east, 
+          xshift=-1mm, 
           yshift=-2mm] 
-          at (current page.north west) 
+          at (current page.north east) 
          {\includegraphics[width=7.5mm,keepaspectratio]{logos/\targetcolourmodel/\chosencolor.pdf}}; 
     \end{tikzpicture}
     
@@ -53,7 +53,7 @@
           xshift=25mm, 
           yshift=.9mm] 
           at (current page.south west) 
-         {\department}; 
+         {\inserttitle, \insertauthor}; 
     \end{tikzpicture}
     
     \begin{tikzpicture}[remember picture,overlay]
@@ -62,14 +62,6 @@
           yshift=1.2mm] 
          at (current page.south east) 
          {\insertpagenumber}; 
-    \end{tikzpicture}
-    
-    \begin{tikzpicture}[remember picture,overlay]
-    \node[anchor=south east, 
-          xshift=-15mm, 
-          yshift=1mm] 
-          at (current page.south east) 
-         {\inserttitle}; 
     \end{tikzpicture}
     
     \end{beamercolorbox}
