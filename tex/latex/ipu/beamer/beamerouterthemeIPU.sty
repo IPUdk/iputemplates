@@ -1,101 +1,78 @@
-% beamerouterthemeIPU.sty
-% This file is a part of the IPU beamer package and defines some 
-% colours and the logo placement. 
-%
-% Changelog
-% 2015-12-28 jowr Copied from DTU package
-%
-
 \mode<presentation>
 
-\setbeamercolor*{framecounter in head/foot}{parent=palette tertiary}
-\setbeamercolor*{department in head/foot}{parent=palette tertiary}
-\setbeamercolor*{title in head/foot}{parent=palette tertiary}
-\setbeamercolor*{date in head/foot}{parent=palette tertiary}
-
-% No navigation symbols
 \setbeamertemplate{navigation symbols}{} 
 
-% Header
-\setbeamertemplate{headline}
-{
-	\ifdefstring{\bDTUWhiteFrame}{true}
-	{
-		\insertFrameDTUWhiteLogo
-	}
-	{
-		\ifdefstring{\bInTitle}{true}
-		{
-			\insertTitleDTULogo
-		}
-		{
-			\insertFrameDTULogo
-		}
-	}
+
+\setbeamertemplate{headline}{
+    % top bar
+    \begin{beamercolorbox}[wd=\paperwidth, ht=2pt, dp=1pt]{fl}
+    \end{beamercolorbox}
+
+    % logo
+    \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west, 
+          xshift=1mm, 
+          yshift=-2mm] 
+          at (current page.north west) 
+         {\includegraphics[width=7.5mm,keepaspectratio]{logos/\targetcolourmodel/\chosencolor.pdf}}; 
+    \end{tikzpicture}
+    
+    
+    % section and frame title
+    \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west,
+         text width = \textwidth,
+         xshift=21mm, 
+         yshift=-5mm] 
+         at (current page.north west)
+         {{\usebeamerfont{section}%
+           \usebeamercolor[fg]{section}%
+           \insertsection\vspace{2mm}}\\
+           {\usebeamerfont{frametitle}%
+            \insertframetitle}};
+    \end{tikzpicture}
+    \vspace{10mm}
 }
 
-% Footer
-\setbeamertemplate{footline}
-{
-	\ifdefstring{\bInTitle}{true}
-	{
-		\vspace{-0.35\paperheight}
-		\begin{beamercolorbox}[wd=\paperwidth]{title bottom}
-			\vbox{%
-				\makebox[0pt][l]{\hspace{\dimDTUDepLogoXOffset}\insertdepartmentlogoA}%
-				\vbox{%
-					\hspace{\dimDTUFriseXOffset}%
-					\makebox[0pt][l]{\insertDTUFrise}%
-					\vspace{\dimDTUDepFriseOffset}%
-				}%
-			}%
-			\vspace{\dimDTUFriseYOffset}
-		\end{beamercolorbox}
-		\global\def\bInTitle{false}
-	}
-	{
-		\ifdefstring{\bDTUWhiteFrame}{true}
-		{
-		}
-		{ %
-			\hbox{ %
-				\hspace{\dimTextLeftMargin}\hspace{-1.5pt}\insertframenumber %
-				\setlength{\widthframenumber}{2em + \widthof{\insertframenumber}} %
-				\setlength{\widthdepartment}{1em + \widthof{\insertdepartmentandinstitute}} %
-				\setlength{\widthdate}{1em + \widthof{00 00 0000}} %
-				\setlength{\widthtitle}{\textwidth-\widthframenumber-\widthdepartment-\widthdate-\dimTextLeftMargin-\dimTextLeftMargin} %
-				%\parbox[t]{\widthframenumber}{\insertframenumber} %
-				\parbox[t]{\widthdepartment}{\insertdepartmentandinstitute} %
-				\parbox[t]{\widthtitle}{\raggedleft\insertshorttitleinfooter} %
-				\parbox[t]{\widthdate}{\raggedleft\DTUDateFormat\insertdate} %
-				\vspace{\dimFootlineYOffset} %
-			}
-		}
-	}
-}
 
-% Position the frame title so that it would get into the headline
-\setbeamertemplate{frametitle}
-{
-	\vspace{\dimPlaceTitleInHeader}
-	\ifdefstring{\inShowSection}{true}
-	{
-			\usebeamerfont{section title}\color{black!20}%
-			\ifnumcomp{\thesection}{=}{0}{%
-				\ \par%
-			}
-			{%
-				\insertsection\par
-			}
-	}
-	{
-		\vspace{\dimFrameTitleOffset}
-	}
-	\vspace{-1pt}\usebeamerfont{frametitle}%
-	\ifdefstring{\bDTUWhiteFrame}{true}{\color{white}}{\color{black}}%
-	\insertframetitle
-	\vspace{\dimAfterFrameTitleOffset}
+\setbeamertemplate{footline}{
+    % bottom bar
+    \begin{beamercolorbox}[wd=\paperwidth, ht=10pt, dp=1pt]{fl}
+    \usebeamerfont{footline}
+    
+    \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south west, 
+          xshift=10mm, 
+          yshift=.9mm] 
+         at (current page.south west) 
+         {\today}; 
+    \end{tikzpicture}
+    
+    \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south west, 
+          xshift=25mm, 
+          yshift=.9mm] 
+          at (current page.south west) 
+         {\department}; 
+    \end{tikzpicture}
+    
+    \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south east, 
+          xshift=-10mm, 
+          yshift=1.2mm] 
+         at (current page.south east) 
+         {\insertpagenumber}; 
+    \end{tikzpicture}
+    
+    \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south east, 
+          xshift=-15mm, 
+          yshift=1mm] 
+          at (current page.south east) 
+         {\inserttitle}; 
+    \end{tikzpicture}
+    
+    \end{beamercolorbox}
+    
+    
 }
-
-\mode
-<all>

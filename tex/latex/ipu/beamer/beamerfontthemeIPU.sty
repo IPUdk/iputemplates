@@ -1,40 +1,9 @@
-% beamerfontthemeIPU.sty
-% This file is a part of the IPU beamer package and makes sure that
-% the IPU fonts are available. 
-%
-% Changelog
-% 2015-12-28 jowr Copied from DTU package
-% 
-% For PDFLATEX
-\usefonttheme{professionalfonts}
+\setbeamercolor{title}{fg = white}
+\setbeamerfont{title}{size = \fontsize{36}{39.6}}
+\setbeamerfont{footline}{series = \bfseries, size = \fontsize{3.5}{3.85}}
 
-% Title font
-\setbeamerfont{title}{size=\large, series=\bfseries}
-\setbeamercolor{title}{fg=black}
+\setbeamerfont{section}{series = \bfseries, size = \fontsize{10}{11}}
+\setbeamercolor{section}{fg = grey}
 
-% Subtitle font
-\setbeamerfont{subtitle}{size=\small, series=\normalfont}
-
-% Author font
-\setbeamerfont{author}{size=\small, series=\normalfont}
-
-% Footline
-\setbeamerfont{framecounter in head/foot}{size=\tiny}
-\setbeamerfont{department in head/foot}{size=\tiny, series=\bfseries}
-\setbeamerfont{title in head/foot}{size=\tiny}
-\setbeamerfont{date in head/foot}{size=\tiny}
-
-% Frametitle
-\setbeamerfont{frametitle}{size=\large, series=\bfseries}
-\setbeamerfont{block body}{size=\small}
-\setbeamerfont{section title}{size=\small}
-\setbeamerfont{block body alerted}{size=\small}
-\setbeamerfont{block body example}{size=\small}
-\setbeamerfont{block title}{size=\large,parent={structure,block body}}
-\setbeamerfont{block title alerted}{parent={block title,alerted text}}
-\setbeamerfont{block title example}{parent={block title,example text}}
-\setbeamerfont{itemize/enumerate body}{size=\small}
-
-% Colours
-\setbeamercolor{frametitle}{fg=black}
-\setbeamercolor{structure}{fg=black}
+\setbeamercolor{frametitle}{bg = grey}
+\setbeamerfont{frametitle}{series = \bfseries, size = \fontsize{14}{15.4}}
