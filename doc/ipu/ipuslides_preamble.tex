@@ -1,0 +1,60 @@
+\usepackage{sansmathfonts}
+\usepackage{helvet}
+\usepackage[english]{babel}
+\usepackage{pgfplots}
+\usepackage{pgf}
+\pgfplotsset{compat=newest}
+\usepackage{booktabs}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lipsum}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{microtype}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{dsfont}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% IPU colours for diagrams
+% You might want to make the front/back page background colour the first colour in the plot cycle list.
+\pgfplotscreateplotcyclelist{IPU}{%
+ipuviridis1, fill=ipuviridis1, \\%
+ipuviridis2, fill=ipuviridis2, \\%
+ipuviridis3, fill=ipuviridis3  \\%
+ipuviridis4, fill=ipuviridis4  \\%
+}
+
+% Table of contents (TOC) and numbering of headings
+\setcounter{tocdepth}{1}    % Depth of table of content: sub sections will not be included in table of contents
+\setcounter{secnumdepth}{2} % Depth of section numbering: sub sub sections are not numbered
+
+%\newcommand{\setcolor}[1]{\def\chosencolor{#1}}
+\def\chosencolor{ipugreen}
+
+\usetheme{IPU}
+\setbeamersize{text margin left=10mm}
+\setbeamersize{text margin right=10mm}
+\def\insertframetitle{}
+
+\newcommand{\inserttitlepage}{
+    \begin{frame}[plain, noframenumbering]{}
+
+        \begin{center}
+        %\hspace{-3.6em}
+            \includegraphics[width = 0.25\paperwidth]{logos/\targetcolourmodel/ipuwhite.pdf}
+        \end{center}
+        
+    \end{frame}
+
+    \begin{frame}[plain]{}
+        \color{white}\maketitle    
+    \end{frame}
+
+    \setbeamercolor{background canvas}{bg = white}
+}
+
