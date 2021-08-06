@@ -20,16 +20,22 @@
     
     % section and frame title
     \begin{tikzpicture}[remember picture,overlay]
-    \node[anchor=north west,
-         text width = \textwidth,
+    \node[anchor=base west,
          xshift=5mm, 
-         yshift=-5mm] 
+         yshift=-8mm] 
+         (tplsection)
          at (current page.north west)
-         {{\usebeamerfont{section}%
-           \usebeamercolor[fg]{section}%
-           \insertsection\vspace{2mm}}\\
-           {\usebeamerfont{frametitle}%
-            \insertframetitle}};
+         {\usebeamerfont{section}%
+          \usebeamercolor[fg]{section}%
+          \insertsection};
+    \node[anchor=base west,
+         xshift=0mm, 
+         yshift=-5mm] 
+         (tpltitle)
+         at (tplsection.base west)
+         {\usebeamerfont{frametitle}%
+          \usebeamercolor[fg]{frametitle}%
+          \insertframetitle};
     \end{tikzpicture}
     \vspace{10mm}
 }
