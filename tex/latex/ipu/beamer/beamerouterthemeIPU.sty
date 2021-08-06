@@ -5,7 +5,7 @@
 
 \setbeamertemplate{headline}{
     % top bar
-    \begin{beamercolorbox}[wd=\paperwidth, ht=2pt, dp=1pt]{fl}
+    \begin{beamercolorbox}[wd=\paperwidth, ht=0.5pt, dp=1pt]{fl}
     \end{beamercolorbox}
 
     % logo
@@ -22,7 +22,7 @@
     \begin{tikzpicture}[remember picture,overlay]
     \node[anchor=north west,
          text width = \textwidth,
-         xshift=21mm, 
+         xshift=5mm, 
          yshift=-5mm] 
          at (current page.north west)
          {{\usebeamerfont{section}%
@@ -37,34 +37,29 @@
 
 \setbeamertemplate{footline}{
     % bottom bar
-    \begin{beamercolorbox}[wd=\paperwidth, ht=10pt, dp=1pt]{fl}
+    \begin{beamercolorbox}[wd=\paperwidth, ht=8pt, dp=3pt]{fl}
     \usebeamerfont{footline}
     
     \begin{tikzpicture}[remember picture,overlay]
-    \node[anchor=south west, 
-          xshift=10mm, 
-          yshift=.9mm] 
+    %\node[anchor=south west, yshift=0mm] (footerSW) at (current page.south west){};
+    %\node[anchor=south east, yshift=0mm] (footerNE) at (current page.north east){};
+    %\draw[draw=black] (footerSW) rectangle ++(footerNE);
+
+    \node[anchor=base west,% draw,
+          xshift=5mm, yshift=4.5pt] 
          at (current page.south west) 
          {\today}; 
-    \end{tikzpicture}
-    
-    \begin{tikzpicture}[remember picture,overlay]
-    \node[anchor=south west, 
-          xshift=25mm, 
-          yshift=.9mm] 
+
+    \node[anchor=base west,% draw,
+          xshift=20mm, yshift=4.5pt] 
           at (current page.south west) 
          {\inserttitle, \insertauthor}; 
-    \end{tikzpicture}
-    
-    \begin{tikzpicture}[remember picture,overlay]
-    \node[anchor=south east, 
-          xshift=-10mm, 
-          yshift=1.2mm] 
+
+    \node[anchor=base east,% draw,
+          xshift=-5mm, yshift=4.5pt] 
          at (current page.south east) 
          {\insertpagenumber}; 
     \end{tikzpicture}
     
     \end{beamercolorbox}
-    
-    
 }
